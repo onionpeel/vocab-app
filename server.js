@@ -1,10 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const dbConnect = require('./config/dbConnect');
 
 const axios = require('axios');
 
 const app = express();
 app.use(bodyParser.json());
+
+dbConnect();
 
 const PORT = process.env.PORT || 5000;
 
