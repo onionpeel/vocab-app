@@ -4,7 +4,7 @@ const config = require('config');
 const dbConnect = async () => {
   try {
     const mongoDbUri = config.get('mongoDbUri');
-    await mongoose.connect(mongoDbUri, {useNewUrlParser: true});
+    await mongoose.connect(mongoDbUri, {useNewUrlParser: true, useUnifiedTopology: true});
   } catch (err) {
     console.log('Database connection not established');
   };

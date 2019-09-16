@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dbConnect = require('./config/dbConnect');
+const VocabTerm = require('./models/VocabTerm');
 
 const axios = require('axios');
 
@@ -23,6 +24,20 @@ app.get('/vocab', async (req, res) => {
     res.send(`Your term is ${term}`);
   } catch(err) {
       console.log(err);
+  };
+});
+
+app.post('/', async (req, res) => {
+  const vocab = new VocabTerm({
+    eng: req.body.eng,
+    kana: req.body.kana,
+    kanji: req.body.kanji
+  });
+  try {
+    const vocabTerm = await vocab.save();
+    res.status(200).send(vocabTerm);
+  } catch(err) {
+    console.log(err);
   };
 });
 
