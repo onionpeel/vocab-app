@@ -3,6 +3,8 @@ const router = express.Router();
 const {check, validationResult} = require('express-validator');
 const User = require('../../models/User');
 const {createToken} = require('../utilities');
+const auth = require('../../middleware/auth');
+const bcrypt = require('bcryptjs');
 
 //@route          POST /api/user
 //@description    Creates a new user in db
@@ -29,17 +31,52 @@ router.post('/', [
         password
       });
 
-      // const user = await newUser.save().select('-password');
       const savedUser = await newUser.save();
 
       //Generate token
       const token = await createToken(savedUser._id.toString());
-      const user = await User.findById(savedUser._id).select('-password');
+      const user = await User.findById(savedUser._id).select('name');
       res.status(201).send({user, token});
     } catch (err) {
       res.status(400).send(err);
     };
   }
 );
+
+//@route          POST /api/user/login
+//@description    logs in a user
+//@access         public
+router.post('/login', [
+    check('email').isEmail(),
+    check('password').isLength({min: 6})
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({errors: errors.array()});
+    };
+
+    const {email, password} = req.body;
+
+    try {
+      //Find user based on email and handle if user is not found
+      let user = await User.findOne({email});
+      if (!user) {
+        return res.status(400).send({errors: [{message: 'User not found'}]});
+      };
+
+      //Verify password
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) {
+        return res.status(400).send({errors: [{message: 'Invalid credentials'}]});
+      };
+
+      const token = await createToken(user._id.toString());
+      user = await User.findById(user._id).select('name');
+      res.status(201).send({user, token});
+    } catch (err) {
+      res.status(500).send(err);
+    };
+});
 
 module.exports = router;
