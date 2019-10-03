@@ -8,8 +8,12 @@ const Vocab = require('../../models/Vocab');
 //@access       private
 router.get('/', auth, async (req, res) => {
   try {
-    const terms = await Vocab.find();
-    res.status(201).send(terms);
+    const terms = await Vocab.find().populate({path: 'user', select: 'name'});
+    const filtered = terms.filter(term => {
+      return term.user._id.toString() === req.user._id.toString();
+    });
+
+    res.status(201).send(filtered);
   } catch (err) {
     res.status(400).send({message: 'Unable to load items'});
   };
@@ -24,7 +28,7 @@ router.post('/', auth, async (req, res) => {
       kanji: req.body.kanji,
       kana: req.body.kana,
       english: req.body.english,
-      user: req.user.id
+      user: req.user._id
     });
 
     await term.save();
@@ -38,14 +42,24 @@ router.post('/', auth, async (req, res) => {
 //@description  Deletes a vocab term from the db
 //@access       private
 router.delete('/:id', auth, async (req, res) => {
-
+  const id = req.params.id;
+  try {
+    await Vocab.deleteOne({_id: id});
+    res.status(201).send();
+  } catch (err) {
+    res.status(400).send({message: 'Unable to delete item'});
+  };
 });
 
 //@route        POST /api/vocab/all
 //@description  Deletes all vocab terms from the db
 //@access       private
-router.delete('/all', auth, async (req, res) => {
-
-});
+// router.delete('/all', auth, async (req, res) => {
+//   try {
+//     await
+//   } catch (err) {
+//     res.status(400).send({message: 'Unable to delete items'});
+//   };
+// });
 
 module.exports = router;

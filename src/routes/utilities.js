@@ -4,11 +4,7 @@ const config = require('config');
 
 const createToken = async userId => {
   try {
-    const payload = {
-      user: {
-        id: userId
-      }
-    };
+    const payload = {id: userId.toString()};
     const token = await jwt.sign(payload, config.get('JWTPrivateKey'));
     return token;
   } catch (err) {

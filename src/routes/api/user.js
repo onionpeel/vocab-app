@@ -34,7 +34,7 @@ router.post('/', [
       const savedUser = await newUser.save();
 
       //Generate token
-      const token = await createToken(savedUser._id.toString());
+      const token = await createToken(savedUser._id);
       const user = await User.findById(savedUser._id).select('name');
       res.status(201).send({user, token});
     } catch (err) {
@@ -71,7 +71,7 @@ router.post('/login', [
         return res.status(400).send({errors: [{message: 'Invalid credentials'}]});
       };
 
-      const token = await createToken(user._id.toString());
+      const token = await createToken(user._id);
       user = await User.findById(user._id).select('name');
       res.status(201).send({user, token});
     } catch (err) {
