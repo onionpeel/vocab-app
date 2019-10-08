@@ -13,6 +13,10 @@ router.get('/', auth, async (req, res) => {
       return term.user._id.toString() === req.user._id.toString();
     });
 
+    if(filtered.length === 0) {
+      return res.status(200).send();
+    };
+
     res.status(201).send(filtered);
   } catch (err) {
     res.status(400).send({message: 'Unable to load items'});
@@ -41,8 +45,8 @@ router.post('/', auth, async (req, res) => {
 //@route        DELETE /api/vocab
 //@description  Deletes a vocab term from the db
 //@access       private
-router.delete('/:id', auth, async (req, res) => {
-  const id = req.params.id;
+router.delete('/', auth, async (req, res) => {
+  const id = req.body.id;
   try {
     await Vocab.deleteOne({_id: id});
     res.status(201).send();
@@ -54,12 +58,13 @@ router.delete('/:id', auth, async (req, res) => {
 //@route        POST /api/vocab/all
 //@description  Deletes all vocab terms from the db
 //@access       private
-// router.delete('/all', auth, async (req, res) => {
-//   try {
-//     await
-//   } catch (err) {
-//     res.status(400).send({message: 'Unable to delete items'});
-//   };
-// });
+router.delete('/all', auth, async (req, res) => {
+  try {
+    await Vocab.deleteMany({user: req.body.user});
+    res.status(200).send();
+  } catch (err) {
+    res.status(400).send({message: 'Unable to delete items'});
+  };
+});
 
 module.exports = router;
