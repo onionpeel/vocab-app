@@ -1,3 +1,7 @@
+<p>ハローキティが好き？</p>
+<p>いえ、口がない猫は可笑しい。ゴジラは一番だ！</p>
+<br />
+
 // const http = require('http');
 //
 // const data = {
