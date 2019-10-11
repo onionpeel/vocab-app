@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const Vocab = require('../../models/Vocab');
+const axios = require('axios');
 
 //@route        GET /api/vocab
 //@description  Retrieves all vocab terms from db
@@ -64,6 +65,20 @@ router.delete('/all', auth, async (req, res) => {
     res.status(200).send();
   } catch (err) {
     res.status(400).send({message: 'Unable to delete items'});
+  };
+});
+
+//@router       GET /api/vocab/term
+//@description  Retrieves the specified term from jisho.org api
+//@access       public
+router.get('/term', async (req, res) => {
+  try {
+    const term = 'dog';
+    const result = await axios.get(`https://jisho.org/api/v1/search/words?keyword=${term}`);
+    const data = result.data.data;
+    res.status(200).send(data);
+   } catch (err) {
+    res.status(500).send({message: 'Unable to retrieve term'});
   };
 });
 
