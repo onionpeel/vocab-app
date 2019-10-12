@@ -71,9 +71,9 @@ router.delete('/all', auth, async (req, res) => {
 //@router       GET /api/vocab/term
 //@description  Retrieves the specified term from jisho.org api
 //@access       public
-router.get('/term', async (req, res) => {
+router.post('/term', async (req, res) => {
   try {
-    const term = 'dog';
+    const {term} = req.body;
     const result = await axios.get(`https://jisho.org/api/v1/search/words?keyword=${term}`);
     const data = result.data.data;
     res.status(200).send(data);

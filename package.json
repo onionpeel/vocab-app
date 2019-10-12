@@ -28,7 +28,8 @@
     "express-validator": "^6.2.0",
     "jest": "^24.9.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.1"
+    "mongoose": "^5.7.1",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "cross-env": "^5.2.1",
