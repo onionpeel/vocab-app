@@ -8,7 +8,7 @@ import VocabList from './components/VocabList';
 function App() {
   return (
     <div>
-      <VocabList />
+      <About />
     </div>
   );
 }
