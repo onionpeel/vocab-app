@@ -47,7 +47,7 @@ const Dictionary = () => {
                     key={uuid()}
                     resultWord={term.japanese[0].word}
                     resultReading={term.japanese[0].reading}
-                    english={term.senses}
+                    meaning={term.senses}
                     />
                 ))}
               </ListGroup>

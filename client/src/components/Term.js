@@ -1,8 +1,8 @@
 import React from 'react';
-import {Card, Container, Row, Col, ListGroup} from 'react-bootstrap';
+import {Card, Row, Col} from 'react-bootstrap';
 import uuid from 'uuid/v4';
 
-const Term = ({resultWord, resultReading, english}) => (
+const Term = ({resultWord, resultReading, meaning}) => (
     <Card style={{marginBottom: 10, padding: 10, boxShadow: "1px 2px 5px grey",
                   backgroundColor: 'rgb(245, 250, 250)'}}>
       <Row>
@@ -13,7 +13,7 @@ const Term = ({resultWord, resultReading, english}) => (
           <p style={{fontSize:"125%"}}>{resultReading}</p>
           <Row>
             <ol>
-              {english.map(def => (
+              {meaning.map(def => (
                 <li key={uuid()}>
                   <p style={{fontFamily: 'Helvetica', fontSize:"125%"}}>{def.english_definitions.join('; ')}</p>
                 </li>
