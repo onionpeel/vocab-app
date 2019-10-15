@@ -1,12 +1,10 @@
 import React from 'react';
 import {Jumbotron, Container, Row, Col, Image} from 'react-bootstrap';
 import './Home.css';
-import Header from './Header';
 
 const Home = () => {
     return (
       <div>
-        <Header />
         <Container>
           <Jumbotron className="jumbo-img">
             <h2>Prepare yourself for an eclipse of the rising sun</h2>

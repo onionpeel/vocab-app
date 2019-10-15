@@ -5,12 +5,29 @@ import About from './components/About';
 import Dictionary from './components/Dictionary';
 import VocabList from './components/VocabList';
 import Registration from './components/Registration';
+import Header from './components/Header';
+import {BrowserRouter as Router,
+  Switch,
+  Route,
+  Link} from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <Dictionary />
-    </div>
+    <Router>
+      <div>
+        <Header />
+        <Link to='/'>Home</Link>
+
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route path='/dictionary' component={Dictionary} />
+          <Route path='/about' component={About} />
+          <Route path='/vocablist' component={VocabList} />
+          <Route path='/registration' component={Registration} />
+        </Switch>
+      </div>
+    </Router>
+
   );
 }
 
