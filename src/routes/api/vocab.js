@@ -56,7 +56,7 @@ router.delete('/', auth, async (req, res) => {
   };
 });
 
-//@route        POST /api/vocab/all
+//@route        Delete /api/vocab/all
 //@description  Deletes all vocab terms from the db
 //@access       private
 router.delete('/all', auth, async (req, res) => {

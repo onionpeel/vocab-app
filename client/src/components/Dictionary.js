@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Container, Col, Row, Form, Button, Image, ListGroup} from 'react-bootstrap';
 import Header from './Header';
 import Term from './Term';
+import SignUpReminder from './SignUpReminder';
 import axios from 'axios';
 import uuid from 'uuid/v4';
 
@@ -41,6 +42,7 @@ const Dictionary = () => {
               </Form>
             </div>
             <div>
+              <SignUpReminder terms={terms}/>
               <ListGroup variant="flush">
                 {terms.map(term => (
                   <Term
