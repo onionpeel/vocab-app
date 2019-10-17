@@ -16,7 +16,6 @@ const App = () => {
     <Router>
       <div>
         <Header />
-        <Link to='/'>Home</Link>
 
         <Switch>
           <Route exact path='/' component={Home} />

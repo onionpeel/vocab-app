@@ -1,12 +1,18 @@
 import React, {useState} from 'react';
 import {Modal, Button, Form} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 const Login = ({onHide, show}) => {
   return (
     <>
       <Modal show={show} onHide={onHide}>
         <Modal.Header closeButton>
-          <Modal.Title>Sign up!!!</Modal.Title>
+          <Modal.Title>
+            If you haven't signed up, you can do that<span> </span>
+            <Link to="/registration">
+              <Button variant="secondary" onClick={onHide}>here</Button>
+            </Link>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form>

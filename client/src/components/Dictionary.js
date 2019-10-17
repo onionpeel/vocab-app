@@ -23,7 +23,6 @@ const Dictionary = () => {
 
   return (
     <div>
-      <Header />
       <Container>
         <Row>
           <Col>

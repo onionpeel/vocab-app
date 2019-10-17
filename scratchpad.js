@@ -1,4 +1,29 @@
+// const user = {
+//   name: 'joe',
+//   age: 55
+// };
+//
+// const x = user.name;
+// const y = user.age
+//
+// const newUser = JSON.stringify({x, y});
+// const jsonUser = JSON.stringify(user);
+//
+// console.log('newUser: ', newUser);
+// console.log('jsonUser: ', jsonUser);
 
+// Header.js
+// import React from 'react';
+// import HeaderLoggedIn from './HeaderLoggedIn';
+// import HeaderLoggedOut from './HeaderLoggedOut';
+//
+// redux state: userLoggedIn
+//
+// const Header = () => (
+//   {userLoggedIn ? <HeaderLoggedIn /> : <HeaderLoggedOut />}
+// );
+//
+// export default Header;
 
 // <Row>
 //   <Col xs={10}>

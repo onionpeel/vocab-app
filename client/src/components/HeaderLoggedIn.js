@@ -2,9 +2,8 @@ import React, {useState} from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
 import './Header.css';
 import Login from '../modals/Login';
-import {connect} from 'react-redux';
 
-const Header = ({token, name}) => {
+const Header = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -16,12 +15,6 @@ const Header = ({token, name}) => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Item>
-            <Nav.Link eventKey="disabled" disabled style={{color: 'white'}}>
-              {token}
-              {name}
-            </Nav.Link>
-          </Nav.Item>
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/about">About</Nav.Link>
           <Nav.Link href="/dictionary">Dictionary</Nav.Link>
@@ -38,12 +31,4 @@ const Header = ({token, name}) => {
   );
 };
 
-const mapStateToProps = state => {
-  console.log(state.authenticate.user);
-  return {
-    token: state.authenticate.token
-    // name: state.authenticate.user.name
-  };
-};
-
-export default connect(mapStateToProps)(Header);
+export default Header;

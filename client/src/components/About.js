@@ -6,7 +6,6 @@ import Header from './Header';
 const About = () => {
   return (
     <div>
-      <Header />
       <Container>
         <Row>
           <Col>
