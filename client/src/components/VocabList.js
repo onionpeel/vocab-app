@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header';
 import VocabListTerms from './VocabListTerms';
 import VocabListEmpty from './VocabListEmpty';
-import {Container, Row, Col, Card} from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 
 const tempArray = [
   {kanji: '本', kana: 'ほん', english: 'book'},

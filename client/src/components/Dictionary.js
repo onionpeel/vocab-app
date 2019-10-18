@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Container, Col, Row, Form, Button, Image, ListGroup} from 'react-bootstrap';
-import Header from './Header';
 import Term from './Term';
 import SignUpReminder from './SignUpReminder';
 import axios from 'axios';

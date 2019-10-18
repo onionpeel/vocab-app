@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import Header from './Header';
+import {Redirect} from 'react-router-dom';
 import {Form, Container, Col, Row, Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {registerUser} from '../actions/authActions';
 
-const Registration = ({registerUser}) => {
+const Registration = ({registerUser, token}) => {
   const [newUser, setNewUser] = useState({
     name: '',
     email: '',
@@ -23,9 +23,14 @@ const Registration = ({registerUser}) => {
     registerUser(newUser);
   };
 
+  const renderRedirect = () => {
+    return (token ? <Redirect to="/dictionary" /> : null);
+  };
+
   return (
     <div>
       <Container>
+        {renderRedirect()}
         <Row>
           <Col xs={12} md={6} className="mx-auto" style={{marginTop:15}}>
             <Form onSubmit={handleOnSubmit}>
@@ -54,9 +59,12 @@ const Registration = ({registerUser}) => {
   );
 };
 
+const mapStateToProps = state => ({
+  token: state.authenticate.token
+});
 
 const mapDispatchToProps = {
   registerUser
 };
 
-export default connect(null, mapDispatchToProps)(Registration);
+export default connect(mapStateToProps, mapDispatchToProps)(Registration);

@@ -1,13 +1,12 @@
-import {REGISTER_SUCCESS
-        REGISTER_FAIL} from '../actions/types';
+import {NEW_ERROR} from '../actions/types';
 
 const initialState = {};
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case REGISTER_SUCCESS:
+    case NEW_ERROR:
       return {
-        ...action.payload
+
       };
     default:
       return state;

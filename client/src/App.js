@@ -8,8 +8,7 @@ import Registration from './components/Registration';
 import Header from './components/Header';
 import {BrowserRouter as Router,
   Switch,
-  Route,
-  Link} from 'react-router-dom';
+  Route} from 'react-router-dom';
 
 const App = () => {
   return (

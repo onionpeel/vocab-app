@@ -5,22 +5,19 @@ import {handleError} from './errorActions';
 
 export const registerUser = user => async dispatch => {
   try {
-    const config = {
-      headers: {"Content-Type": "application/json"}
-    };
-
-    const jsonUser = JSON.stringify(user);
-
-    const newUser = await axios.post('/api/user', jsonUser, config);
+    const newUser = await axios.post('/api/user', user);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: newUser.data
     });
+    const token = newUser.data.token;
+
+    localStorage.setItem('token', token);
   } catch (err) {
     console.log(err);
-    handleError();
-    dispatch({
-      type: REGISTER_FAIL
-    });
+    // handleError();
+    // dispatch({
+    //   type: REGISTER_FAIL
+    // });
   };
 };

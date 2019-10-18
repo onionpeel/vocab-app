@@ -16,11 +16,9 @@ const Header = ({authenticate: {user}}) => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Item>
             <Nav.Link eventKey="disabled" disabled style={{color: 'white'}}>
               {user && user.name}
             </Nav.Link>
-          </Nav.Item>
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/about">About</Nav.Link>
           <Nav.Link href="/dictionary">Dictionary</Nav.Link>
@@ -37,12 +35,8 @@ const Header = ({authenticate: {user}}) => {
   );
 };
 
-const mapStateToProps = state => {
-  console.log(state.authenticate.user);
-  return {
-    token: state.authenticate.token,
-    authenticate: state.authenticate
-  };
-};
+const mapStateToProps = state => ({
+  authenticate: state.authenticate
+});
 
 export default connect(mapStateToProps)(Header);

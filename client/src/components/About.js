@@ -1,7 +1,6 @@
 import React from 'react';
 import {Container, Row, Col, Image} from 'react-bootstrap';
 import './About.css';
-import Header from './Header';
 
 const About = () => {
   return (

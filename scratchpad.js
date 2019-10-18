@@ -1,3 +1,69 @@
+
+
+// const isPalindrome = str => {
+//   return (str === str.split('').reverse().join('') ? true : false);
+// };
+//
+// isPalindrome('gog');
+
+// const isPalindrome = str => {
+//   if (str === str.split('').reverse().join('')) {
+//     return true;
+//   };
+//   return false;
+// };
+//
+// isPalindrome('god');
+//
+// const reverse = str => {
+//   const arr = [...str];
+//   const rev = [];
+//
+//   for(let i = 0; i < arr.length; i++) {
+//     rev.unshift(arr[i]);
+//   };
+//   return rev;
+// };
+//
+// const reverseForEach = str => {
+//   const arr = [...str];
+//   const rev = [];
+//
+//   arr.forEach(val => rev.unshift(val));
+//   return rev;
+// };
+//
+// const compare = (a1, a2) => {
+//   for (let j = 0; j < a1.length; j++) {
+//     if (a1[j] !== a2[j]) {
+//       return false;
+//     };
+//   };
+//   return true;
+// };
+//
+// const isPalindrome = string => {
+//   //transform string to an array
+//   const arr1 = [...string];
+//   //create an array with its values the reverse order of arr1
+//   const arr2 = reverseForEach(string);
+//   //test whether arr1 and arr2 are the same
+//   return compare(arr1, arr2);
+// };
+//
+// console.log(isPalindrome('gog'));
+
+
+// 1. string to array
+// 2. new string that is reverse of string
+// 3. iterate and compare the two strings
+// 4. return true if all indexes match; otherwise false
+// const config = {
+//   headers: {"Content-Type": "application/json"}
+// };
+//
+// const jsonUser = JSON.stringify(user);
+
 // const user = {
 //   name: 'joe',
 //   age: 55
