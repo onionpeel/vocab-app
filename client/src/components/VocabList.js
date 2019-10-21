@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from './Header';
 import VocabListTerms from './VocabListTerms';
 import VocabListEmpty from './VocabListEmpty';
 import {Container} from 'react-bootstrap';
@@ -14,7 +13,6 @@ const tempArray = [
 const VocabList = () => {
   return (
     <div>
-      <Header />
       <Container>
         {tempArray ? <VocabListTerms vocabulary={tempArray}/> : <VocabListEmpty />}
       </Container>

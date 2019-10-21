@@ -4,7 +4,7 @@ import {Form, Container, Col, Row, Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {registerUser} from '../actions/authActions';
 
-const Registration = ({registerUser, token}) => {
+const Registration = ({registerUser, isAuthenticated}) => {
   const [newUser, setNewUser] = useState({
     name: '',
     email: '',
@@ -24,7 +24,7 @@ const Registration = ({registerUser, token}) => {
   };
 
   const renderRedirect = () => {
-    return (token ? <Redirect to="/dictionary" /> : null);
+    return (isAuthenticated ? <Redirect to="/vocablist" /> : null);
   };
 
   return (
@@ -60,7 +60,7 @@ const Registration = ({registerUser, token}) => {
 };
 
 const mapStateToProps = state => ({
-  token: state.authenticate.token
+  isAuthenticated: state.authenticate.isAuthenticated
 });
 
 const mapDispatchToProps = {

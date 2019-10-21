@@ -1,3 +1,197 @@
+const func = (a,b,c) => {
+  
+};
+
+// function func1() {
+//   console.log('func1: ', this);
+//   const obj = {
+//     func2() {
+//       console.log('func2: ', this);
+//       // let that = this;
+//       function func3() {
+//         console.log('func3: ', this);
+//       }
+//       func3();
+//       const func4 = () => {
+//         console.log('func4: ', this);
+//       };
+//       func4();
+//     }
+//   };
+//   // obj.func2.bind(this)();
+//   obj.func2();
+// };
+// func1();
+
+// const obj = {
+//   name: 'mimi',
+//   age: 40,
+//   func1() {
+//     console.log(`${this.name} is ${this.age} years old`);
+//   }
+// };
+//
+// const obj2 = {
+//   name: "mariko",
+//   age: 28
+// };
+//
+// const func2 = obj.func1.bind(obj2);
+// func2();
+// const obj = {
+//   func1() {
+//     console.log('func1: ', this);
+//     let that = this;
+//     function func2() {
+//       console.log('func2: ', that);
+//     };
+//     func2();
+//   }
+// };
+// obj.func1();
+
+// function func2() {
+//   console.log("this: ", this);
+//   function func3() {
+//     console.log('func3 this: ', this);
+//   };
+//   func3();
+// };
+// func2();
+//
+//
+// const obj = {
+//   func1() {
+//     console.log('this: ', this);
+//   }
+// };
+//
+// obj.func1();
+
+
+
+// function scope() {
+//   console.log(this);
+//   let that = this;
+//   return function() {
+//     console.log(that);
+//   };
+// };
+// let inner = scope();
+// inner();
+// const demoMemo = func => {
+//   return () => {
+//     console.log(func);
+//     console.log(arguments[0]);
+//   };
+// };
+//
+// const adder = demoMemo(function(num){
+//   num + num;
+// });
+
+// const arr = [1,2,3];
+// const arr2 = ['a', 'b', 'c'];
+// const result = arr.push.apply(arr, arr2);
+// console.log(result);
+// console.log(arr);
+
+// const arr = [1,3,5,7,3,4,77];
+// const apply = Math.max.apply(null, arr);
+// console.log(apply);
+// const spread = Math.max(...arr);
+// console.log(spread);
+
+// function func(a, b, c) {
+//   const stringified = JSON.stringify(arguments)
+//   console.log(stringified);
+//   console.log(arguments);
+// };
+// func(10, 11, 12);
+//
+// const arr = [1,2,3];
+// console.log(JSON.stringify(arr));
+
+// import React from 'react';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import Home from './components/Home';
+// import About from './components/About';
+// import Dictionary from './components/Dictionary';
+// import VocabList from './components/VocabList';
+// import Registration from './components/Registration';
+// import Header from './components/Header';
+// import Login from './components/Login';
+// import {connect} from 'react-redux';
+// import {BrowserRouter as Router,
+//   Switch,
+//   Route} from 'react-router-dom';
+//
+// const App = ({isAuthenticated}) => {
+//   const PrivateRoute = ({component: Component, ...rest}) => {
+//     return (
+//       <Route
+//         {...rest}
+//         render={props =>
+//           isAuthenticated === true ? (
+//             <Component {...props} />
+//           ) : (
+//             <Redirect
+//               to={{
+//                 pathname: "/login"
+//               }}
+//             />
+//           )
+//         }
+//       />
+//     );
+//   };
+//
+//   return (
+//     <Router>
+//       <div>
+//         <Header />
+//
+//         <Switch>
+//           <Route exact path='/' component={Home} />
+//           <Route path='/dictionary' component={Dictionary} />
+//           <Route path='/about' component={About} />
+//           <Route path='/registration' component={Registration} />
+//           <Route path='/login' component={LoginPage} />
+//           <PrivateRoute path='/vocablist' isAuthenticated={isAuthenticated} component={VocabList} />
+//         </Switch>
+//       </div>
+//     </Router>
+//
+//   );
+// }
+//
+// const mapStateToProps = state => ({
+//   isAuthenticated: state.authenticate.isAuthenticated
+// });
+//
+// export default connect(mapStateToProps)(App);
+
+
+
+// import React from 'react';
+//
+// const LoginStatus = ({token}) => (
+//   {token
+//     ?
+//     <Nav.Link variant="link" onClick={handleShow}>Logout</Nav.Link>
+//     :
+//     <Nav>
+//       <Nav.Link variant="link" onClick={handleShow}>Login</Nav.Link>
+//       <Login
+//         show={show}
+//         onHide={handleClose}
+//       />
+//     </Nav>
+//   }
+// );
+//
+// export default LoginStatus;
+
 
 
 // const isPalindrome = str => {

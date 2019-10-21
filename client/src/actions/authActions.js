@@ -1,6 +1,10 @@
 import axios from 'axios';
 import {REGISTER_SUCCESS,
-        REGISTER_FAIL} from './types';
+        REGISTER_FAIL,
+        AUTHENTICATION_FAIL,
+        USER_LOADED,
+        LOGOUT_FAIL,
+        LOGOUT_SUCCESS} from './types';
 import {handleError} from './errorActions';
 
 export const registerUser = user => async dispatch => {
@@ -14,10 +18,46 @@ export const registerUser = user => async dispatch => {
 
     localStorage.setItem('token', token);
   } catch (err) {
-    console.log(err);
-    // handleError();
-    // dispatch({
-    //   type: REGISTER_FAIL
-    // });
+    dispatch(handleError(err.response.data, err.response.status));
+    dispatch({
+      type: REGISTER_FAIL
+    });
+  };
+};
+
+export const logout = async dispatch => {
+  try {
+    await localStorage.removeItem('token');
+    dispatch({
+      type: LOGOUT_SUCCESS
+    });
+  } catch (err) {
+    dispatch({
+      type: LOGOUT_FAIL,
+    });
+    dispatch(handleError(err.response.data, err.response.status));
+  };
+};
+
+export const loadUser = () => async (dispatch, getItem) => {
+  try {
+    const token = await localStorage.getItem('token');
+    if (!token) {
+      return dispatch({
+        type: AUTHENTICATION_FAIL
+      });
+    };
+    console.log(token);
+    const user = await axios.get('/api/user/authenticate', {headers: {'Authorization': token}});
+    console.log(user.data);
+    dispatch({
+      type: USER_LOADED,
+      payload: user.data
+    });
+  } catch (err) {
+    dispatch(handleError(err.response.data, err.response.status));
+    dispatch({
+      type: AUTHENTICATION_FAIL
+    });
   };
 };

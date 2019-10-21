@@ -8,18 +8,14 @@ const Login = ({onHide, show}) => {
       <Modal show={show} onHide={onHide}>
         <Modal.Header closeButton>
           <Modal.Title>
-            If you haven't signed up, you can do that<span> </span>
-            <Link to="/registration">
-              <Button variant="secondary" onClick={onHide}>here</Button>
-            </Link>
+                If you haven't signed up, you can do that<span> </span>
+              <Link to="/registration" style={{color: 'blue'}} onClick={onHide}>
+                here
+              </Link>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form>
-          <Form.Group controlId="formBasicUsername">
-            <Form.Label>Username</Form.Label>
-            <Form.Control type="text" placeholder="Enter username" />
-          </Form.Group>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control type="email" placeholder="Enter email" />

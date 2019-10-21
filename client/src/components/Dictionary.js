@@ -27,7 +27,7 @@ const Dictionary = () => {
           <Col>
             <div>
               <Form className="mt-2" onSubmit={fetchData}>
-                <Form.Group controlId="formBasicEmail">
+                <Form.Group>
                   <Form.Label>Find that Japanese word you've always longed for</Form.Label>
                   <Form.Control type="text" placeholder="What's taking you so long?" value={searchWord} onChange={setQuery}/>
                   <Form.Text className="text-muted">

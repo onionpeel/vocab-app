@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
 import './Header.css';
-import Login from '../modals/Login';
+import {logout} from '../actions/authActions';
+import {connect} from 'react-redux';
 
-const Header = () => {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+const HeaderLoggedIn = ({authenticate: {user}}, logout) => {
+  const handleOnClick = e => {
+    logout();
+  };
 
   return (
     <Navbar expand="lg">
@@ -15,20 +15,26 @@ const Header = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
+          <Nav.Link eventKey="disabled" disabled style={{color: 'white'}}>
+            {user && user.name}
+          </Nav.Link>
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/about">About</Nav.Link>
+          <Nav.Link href="/vocablist">My Vocab List</Nav.Link>
           <Nav.Link href="/dictionary">Dictionary</Nav.Link>
-          <Nav>
-            <Nav.Link variant="link" onClick={handleShow}>Login</Nav.Link>
-            <Login
-              show={show}
-              onHide={handleClose}
-            />
-          </Nav>
+          <Nav.Link variant="link" href="/" onClick={handleOnClick}>Logout</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
   );
 };
 
-export default Header;
+const mapStateToProps = state => ({
+  authenticate: state.authenticate
+});
+
+const mapDispathToProps = {
+  logout
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(HeaderLoggedIn);

@@ -79,4 +79,16 @@ router.post('/login', [
     };
 });
 
+//@route          GET /api/user/authenticate
+//@description    returns user's own data
+//@access         private
+router.get('/authenticate', auth, async (req, res) => {
+  try {
+    console.log('attempting call to api/user/authenticate')
+    res.status(200).send(req.user);
+  } catch (err) {
+    res.status(400).send({message: 'User not found'});
+  };
+});
+
 module.exports = router;
