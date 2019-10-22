@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/Home';
 import About from './components/About';
@@ -8,16 +8,12 @@ import Registration from './components/Registration';
 import Header from './components/Header';
 import LoginPage from './components/LoginPage';
 import {connect} from 'react-redux';
-import {loadUser} from './actions/authActions';
 import {BrowserRouter as Router,
   Switch,
   Route,
   Redirect} from 'react-router-dom';
 
-const App = ({isAuthenticated, loadUser}) => {
-  useEffect(() => {
-    loadUser();
-  });
+const App = ({isAuthenticated}) => {
 
   const PrivateRoute = ({component: Component, ...rest}) => {
     return (
@@ -61,8 +57,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.authenticate.isAuthenticated
 });
 
-const mapDispathToProps = {
-  loadUser
-};
-
-export default connect(mapStateToProps, mapDispathToProps)(App);
+export default connect(mapStateToProps)(App);
