@@ -25,9 +25,10 @@ export const registerUser = user => async dispatch => {
   };
 };
 
-export const logout = async dispatch => {
+export const logout = () => dispatch => {
   try {
-    await localStorage.removeItem('token');
+    localStorage.removeItem('token');
+    localStorage.removeItem('state');
     dispatch({
       type: LOGOUT_SUCCESS
     });
@@ -39,25 +40,25 @@ export const logout = async dispatch => {
   };
 };
 
-export const loadUser = () => async (dispatch, getItem) => {
-  try {
-    const token = await localStorage.getItem('token');
-    if (!token) {
-      return dispatch({
-        type: AUTHENTICATION_FAIL
-      });
-    };
-    console.log(token);
-    const user = await axios.get('/api/user/authenticate', {headers: {'Authorization': token}});
-    console.log(user.data);
-    dispatch({
-      type: USER_LOADED,
-      payload: user.data
-    });
-  } catch (err) {
-    dispatch(handleError(err.response.data, err.response.status));
-    dispatch({
-      type: AUTHENTICATION_FAIL
-    });
-  };
-};
+// export const loadUser = () => async (dispatch, getItem) => {
+//   try {
+//     const token = await localStorage.getItem('token');
+//     if (!token) {
+//       return dispatch({
+//         type: AUTHENTICATION_FAIL
+//       });
+//     };
+//     console.log(token);
+//     const user = await axios.get('/api/user/authenticate', {headers: {'Authorization': token}});
+//     console.log(user.data);
+//     dispatch({
+//       type: USER_LOADED,
+//       payload: user.data
+//     });
+//   } catch (err) {
+//     dispatch(handleError(err.response.data, err.response.status));
+//     dispatch({
+//       type: AUTHENTICATION_FAIL
+//     });
+//   };
+// };

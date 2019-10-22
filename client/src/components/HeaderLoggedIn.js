@@ -4,7 +4,7 @@ import './Header.css';
 import {logout} from '../actions/authActions';
 import {connect} from 'react-redux';
 
-const HeaderLoggedIn = ({authenticate: {user}}, logout) => {
+const HeaderLoggedIn = ({authenticate: {user}, logout}) => {
   const handleOnClick = e => {
     logout();
   };

@@ -6,6 +6,10 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const saveToLocalStorage = state => {
   try {
+    if (state.authenticate.isAuthenticated === false) {
+      return;
+    };
+
     const data = JSON.stringify(state);
     localStorage.setItem('state', data);
   } catch (err) {
