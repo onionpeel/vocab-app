@@ -4,11 +4,16 @@ import {REGISTER_SUCCESS,
         AUTHENTICATION_FAIL,
         USER_LOADED,
         LOGOUT_FAIL,
-        LOGOUT_SUCCESS} from './types';
+        LOGOUT_SUCCESS,
+        IS_LOADING} from './types';
 import {handleError} from './errorActions';
 
 export const registerUser = user => async dispatch => {
   try {
+    dispatch({
+      type: IS_LOADING
+    });
+
     const newUser = await axios.post('/api/user', user);
     dispatch({
       type: REGISTER_SUCCESS,

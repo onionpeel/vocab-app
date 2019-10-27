@@ -3,8 +3,9 @@ import {Redirect} from 'react-router-dom';
 import {Form, Container, Col, Row, Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {registerUser} from '../actions/authActions';
+import IsLoadingAlert from './IsLoadingAlert';
 
-const Registration = ({registerUser, isAuthenticated}) => {
+const Registration = ({registerUser, isAuthenticated, isLoading}) => {
   const [newUser, setNewUser] = useState({
     name: '',
     email: '',
@@ -24,13 +25,14 @@ const Registration = ({registerUser, isAuthenticated}) => {
   };
 
   const renderRedirect = () => {
-    return (isAuthenticated ? <Redirect to="/vocablist" /> : null);
+    return (isAuthenticated && <Redirect to="/vocablist" />);
   };
 
   return (
     <div>
       <Container>
         {renderRedirect()}
+        {isLoading && <IsLoadingAlert />}
         <Row>
           <Col xs={12} md={6} className="mx-auto" style={{marginTop:15}}>
             <Form onSubmit={handleOnSubmit}>
@@ -60,7 +62,8 @@ const Registration = ({registerUser, isAuthenticated}) => {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.authenticate.isAuthenticated
+  isAuthenticated: state.authenticate.isAuthenticated,
+  isLoading: state.authenticate.isLoading
 });
 
 const mapDispatchToProps = {
