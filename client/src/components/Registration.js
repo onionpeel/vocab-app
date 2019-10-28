@@ -28,11 +28,15 @@ const Registration = ({registerUser, isAuthenticated, isLoading}) => {
     return (isAuthenticated && <Redirect to="/vocablist" />);
   };
 
+  const loadAlert = () => {
+    return (isLoading && <IsLoadingAlert />);
+  };
+
   return (
     <div>
       <Container>
         {renderRedirect()}
-        {isLoading && <IsLoadingAlert />}
+        {loadAlert()}
         <Row>
           <Col xs={12} md={6} className="mx-auto" style={{marginTop:15}}>
             <Form onSubmit={handleOnSubmit}>

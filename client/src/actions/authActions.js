@@ -5,7 +5,8 @@ import {REGISTER_SUCCESS,
         USER_LOADED,
         LOGOUT_FAIL,
         LOGOUT_SUCCESS,
-        IS_LOADING} from './types';
+        IS_LOADING,
+        IS_LOADED} from './types';
 import {handleError} from './errorActions';
 
 export const registerUser = user => async dispatch => {
@@ -20,6 +21,10 @@ export const registerUser = user => async dispatch => {
       payload: newUser.data
     });
     const token = newUser.data.token;
+
+    dispatch({
+      type: IS_LOADED
+    });
 
     localStorage.setItem('token', token);
   } catch (err) {
