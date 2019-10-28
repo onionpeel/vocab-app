@@ -1,8 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Modal, Button, Form} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import IsLoadingAlert from '../components/IsLoadingAlert';
+import {login} from '../actions/authActions';
 
-const Login = ({onHide, show}) => {
+const Login = ({onHide, show, isLoading, login}) => {
+  const [user, setUser] = useState({
+    password: '',
+    email: ''
+  });
+
+  const handleOnChange = e => {
+    const newUser = {
+      ...user,
+      [e.target.name]: e.target.value
+    };
+    setUser(newUser);
+  };
+
+  const handleOnSubmit = e => {
+    e.preventDefault();
+    login(user);
+  };
+
+  const loadAlert = () => {
+    return (isLoading && <IsLoadingAlert />);
+  };
+
   return (
     <>
       <Modal show={show} onHide={onHide}>
@@ -15,23 +40,44 @@ const Login = ({onHide, show}) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
-          </Form.Group>
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
+          {loadAlert()}
+          <Form onSubmit={handleOnSubmit}>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                name="email"
+                value={user.email}
+                onChange={handleOnChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={user.password}
+                onChange={handleOnChange}
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
         </Modal.Body>
       </Modal>
     </>
   );
 };
 
-export default Login;
+const mapStateToProps = state => ({
+  isLoading: state.authenticate.isLoading
+});
+
+const mapDispatchToProps = {
+  login
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

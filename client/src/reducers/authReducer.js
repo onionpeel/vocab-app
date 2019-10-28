@@ -5,7 +5,9 @@ import {REGISTER_SUCCESS,
         LOGOUT_FAIL,
         LOGOUT_SUCCESS,
         IS_LOADING,
-        IS_LOADED} from '../actions/types';
+        IS_LOADED,
+        LOGIN_SUCCESS,
+        LOGIN_FAIL} from '../actions/types';
 
 const initialState = {
   isAuthenticated: false,
@@ -28,6 +30,7 @@ export default (state = initialState, action) => {
         isAuthenticated: false
       };
     case LOGOUT_FAIL:
+    case LOGIN_FAIL:
       return {
         ...state
       };
@@ -37,8 +40,11 @@ export default (state = initialState, action) => {
         isLoading: true
       };
     case IS_LOADED:
+    case LOGIN_SUCCESS:
       return {
         ...state,
+        ...action.payload,
+        isAuthenticated: true,
         isLoading: false
       };
     default:

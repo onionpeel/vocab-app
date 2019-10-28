@@ -6,7 +6,9 @@ import {REGISTER_SUCCESS,
         LOGOUT_FAIL,
         LOGOUT_SUCCESS,
         IS_LOADING,
-        IS_LOADED} from './types';
+        IS_LOADED,
+        LOGIN_SUCCESS,
+        LOGIN_FAIL} from './types';
 import {handleError} from './errorActions';
 
 export const registerUser = user => async dispatch => {
@@ -31,6 +33,28 @@ export const registerUser = user => async dispatch => {
     dispatch(handleError(err.response.data, err.response.status));
     dispatch({
       type: REGISTER_FAIL
+    });
+  };
+};
+
+export const login = user => async dispatch => {
+  try {
+    dispatch({
+      type: IS_LOADING
+    });
+
+    const loggedInUser = await axios.post('/api/user/login', user);
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: loggedInUser.data
+    });
+
+    const token = loggedInUser.data.token;
+    localStorage.setItem('token', token);
+  } catch (err) {
+    dispatch(handleError(err.response.data, err.response.status));
+    dispatch({
+      type: LOGIN_FAIL
     });
   };
 };
