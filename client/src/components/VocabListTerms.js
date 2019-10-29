@@ -1,30 +1,39 @@
 import React from 'react';
-import {ListGroup, Row, Col} from 'react-bootstrap';
+import {ListGroup, Row, Col, Container, Alert} from 'react-bootstrap';
 import VocabListTerm from './VocabListTerm';
 import uuid from 'uuid/v4';
+import {connect} from 'react-redux';
 
-const VocabListTerms = ({vocabulary}) => {
+const VocabListTerms = ({vocabulary, name}) => {
   return (
-    <div>
+    <Container>
       <Row>
-        <Col xs={12} style={{textAlign: 'center'}} className="mx-auto">
-            <h1>Hey, [username], that's a fine list you have!</h1>
+        <Col xs={12} md={7} style={{textAlign: 'center'}} className="mx-auto">
+          <Alert style={{backgroundColor: 'rgb(196, 233, 245)'}}>
+            <h4>Hey, {name}, that's a fine list you have!</h4>
+          </Alert>
         </Col>
       </Row>
-      <Col xs={12} md={6} className="mx-auto">
-        <ListGroup variant="flush">
-          {vocabulary.map(term => (
-            <VocabListTerm
-              key={uuid()}
-              kanji={term.kanji}
-              kana={term.kana}
-              english={term.english}
-            />
-          ))}
-        </ListGroup>
-      </Col>
-    </div>
+      <Row>
+        <Col xs={12} md={7} className="mx-auto">
+          <ListGroup variant="flush">
+            {vocabulary.map(term => (
+              <VocabListTerm
+                key={uuid()}
+                kanji={term.kanji}
+                kana={term.kana}
+                english={term.english}
+              />
+            ))}
+          </ListGroup>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
-export default VocabListTerms;
+const mapStateToProps = state => ({
+  name: state.authenticate.user.name
+});
+
+export default connect(mapStateToProps)(VocabListTerms);
