@@ -9,3 +9,4 @@ export const IS_LOADING = 'IS_LOADING';
 export const IS_LOADED = 'IS_LOADED';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const ADD_TERM = 'ADD_TERM';

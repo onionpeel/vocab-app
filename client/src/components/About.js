@@ -20,8 +20,8 @@ const About = () => {
             <p>The power of your inner pastry is waiting to be unleashed.</p>
           </Col>
           <Col>
-            <p>Remember that no makeover is complete without visiting the <a style={{color: '#2892D7'}} href="https://github.com/onionpeel/vocab-app">source code</a></p>
-
+            <p>Remember that no makeover is complete without visiting the <a style={{color: '#2892D7'}} href="https://github.com/onionpeel/vocab-app">source code</a>.</p>
+            <p>This is a whimsical site demonstrating serious full stack tech.</p>
           </Col>
         </Row>
       </Container>

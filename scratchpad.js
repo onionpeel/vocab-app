@@ -1,6 +1,22 @@
-const func = (a,b,c) => {
-  
-};
+
+
+// function warnTheSheep(queue) {
+//   if (queue[queue.length - 1] === 'wolf') {
+//     return 'Pls go away and stop eating my sheep';
+//   };
+//
+//   let rev = [...queue];
+//   rev.reverse();
+//   let n = rev.indexOf('wolf');
+//   return `Oi! Sheep number ${n}! You are about to be eaten by a wolf!`;
+// }
+//
+// warnTheSheep(["sheep", "sheep", "sheep", "wolf", "sheep"]);
+// warnTheSheep(["sheep", "sheep", "wolf"])
+
+// const func = (a,b,c) => {
+//
+// };
 
 // function func1() {
 //   console.log('func1: ', this);
