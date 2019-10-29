@@ -1,4 +1,6 @@
-
+// <Nav.Link eventKey="disabled" disabled style={{color: 'white'}}>
+//   {user && user.name}
+// </Nav.Link>
 
 // function warnTheSheep(queue) {
 //   if (queue[queue.length - 1] === 'wolf') {

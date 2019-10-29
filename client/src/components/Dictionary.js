@@ -4,8 +4,9 @@ import Term from './Term';
 import SignUpReminder from './SignUpReminder';
 import axios from 'axios';
 import uuid from 'uuid/v4';
+import {connect} from 'react-redux';
 
-const Dictionary = () => {
+const Dictionary = ({isAuthenticated}) => {
   const [terms, setTerms] = useState([]);
   const [searchWord, setSearchWord] = useState('');
 
@@ -18,6 +19,10 @@ const Dictionary = () => {
     const response = await axios.post('/api/vocab/term', {term: searchWord});
     setTerms(response.data);
     setSearchWord('');
+  };
+
+  const showSignUpAlert = () => {
+    return (!isAuthenticated && <SignUpReminder terms={terms}/>);
   };
 
   return (
@@ -40,14 +45,14 @@ const Dictionary = () => {
               </Form>
             </div>
             <div>
-              <SignUpReminder terms={terms}/>
+              {showSignUpAlert()}
               <ListGroup variant="flush">
                 {terms.map(term => (
                   <Term
                     key={uuid()}
-                    resultWord={term.japanese[0].word}
-                    resultReading={term.japanese[0].reading}
-                    meaning={term.senses}
+                    kanji={term.japanese[0].word}
+                    kana={term.japanese[0].reading}
+                    english={term.senses}
                     />
                 ))}
               </ListGroup>
@@ -64,4 +69,8 @@ const Dictionary = () => {
   );
 };
 
-export default Dictionary;
+const mapStateToProps = state => ({
+  isAuthenticated: state.authenticate.isAuthenticated
+});
+
+export default connect(mapStateToProps)(Dictionary);

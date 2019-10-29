@@ -35,7 +35,6 @@ router.post('/', auth, async (req, res) => {
       english: req.body.english,
       user: req.user._id
     });
-
     await term.save();
     res.status(201).send(term);
   } catch (err) {

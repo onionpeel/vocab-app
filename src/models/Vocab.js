@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 let VocabSchema = new Schema({
   kanji: String,
   kana: String,
-  english: String,
+  english: Array,
   user: {
     type: Schema.Types.ObjectId,
     ref: 'user'

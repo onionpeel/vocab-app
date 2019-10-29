@@ -4,13 +4,13 @@ import {connect} from 'react-redux';
 import {add} from '../actions/vocabActions';
 import uuid from 'uuid/v4';
 
-const Term = ({resultWord, resultReading, meaning, add}) => {
+const Term = ({kanji, kana, english, add}) => {
   const handleOnClick = e => {
     e.preventDefault();
     add({
-      resultWord,
-      resultReading,
-      meaning
+      kanji,
+      kana,
+      english
     });
   };
 
@@ -24,14 +24,14 @@ const Term = ({resultWord, resultReading, meaning, add}) => {
         <Col xs={1}></Col>
         <Col xs={10}>
           <Row>
-            <h2>{resultWord}</h2>
+            <h2>{kanji}</h2>
           </Row>
           <Row>
-          <p style={{fontSize:"125%"}}>{resultReading} </p>
+          <p style={{fontSize:"125%"}}>{kana} </p>
           </Row>
           <Row>
             <ol>
-              {meaning.map(def => (
+              {english.map(def => (
                 <li key={uuid()}>
                   <p style={{fontFamily: 'Helvetica', fontSize:"125%"}}>{def.english_definitions.join('; ')}</p>
                 </li>

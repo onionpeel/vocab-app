@@ -8,7 +8,7 @@ export const add = term => async (dispatch, getState) => {
     const savedTerm = await axios.post('/api/vocab', term, {headers: {'x-auth-token': token}});
     dispatch({
       type: ADD_TERM,
-      payload: savedTerm
+      payload: savedTerm.data
     });
   } catch (err) {
     dispatch(handleError(err.response.data, err.response.status));
