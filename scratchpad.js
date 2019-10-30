@@ -1,8 +1,8 @@
 <div>{String.fromCharCode(0x2713)} Added</div>
 <div>{"\u2713 Added"}</div>
 
-const english = [{english_definitions: ['a', 'b', 'c']}];
-console.log(english[0].english_definitions.join('; '));
+// const english = [{english_definitions: ['a', 'b', 'c']}];
+// console.log(english[0].english_definitions.join('; '));
 
 
 // const tempArray = [

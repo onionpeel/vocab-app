@@ -1,7 +1,5 @@
 import {REGISTER_SUCCESS,
         REGISTER_FAIL,
-        USER_LOADED,
-        AUTHENTICATION_FAIL,
         LOGOUT_FAIL,
         LOGOUT_SUCCESS,
         IS_LOADING,
@@ -17,13 +15,11 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_SUCCESS:
-    case USER_LOADED:
       return {
         ...state,
         ...action.payload,
         isAuthenticated: true
       };
-    case AUTHENTICATION_FAIL:
     case REGISTER_FAIL:
     case LOGOUT_SUCCESS:
       return {

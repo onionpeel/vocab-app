@@ -20,7 +20,6 @@ export const getVocab = () => async (dispatch, getState) => {
   try {
     const token = getState().authenticate.token;
     const vocabList = await axios.get('/api/vocab', {headers: {'x-auth-token': token}});
-    console.log(typeof vocabList.data);
     dispatch({
       type: GET_VOCAB,
       payload: vocabList.data

@@ -1,15 +1,15 @@
 import axios from 'axios';
 import {REGISTER_SUCCESS,
         REGISTER_FAIL,
-        AUTHENTICATION_FAIL,
-        USER_LOADED,
         LOGOUT_FAIL,
         LOGOUT_SUCCESS,
         IS_LOADING,
         IS_LOADED,
         LOGIN_SUCCESS,
-        LOGIN_FAIL} from './types';
+        LOGIN_FAIL,
+        GET_VOCAB} from './types';
 import {handleError} from './errorActions';
+import {getVocab} from './vocabActions';
 
 export const registerUser = user => async dispatch => {
   try {
@@ -51,6 +51,12 @@ export const login = user => async dispatch => {
 
     const token = loggedInUser.data.token;
     localStorage.setItem('token', token);
+
+    const vocabList = await axios.get('/api/vocab', {headers: {'x-auth-token': token}});
+    dispatch({
+      type: GET_VOCAB,
+      payload: vocabList.data
+    });
   } catch (err) {
     dispatch(handleError(err.response.data, err.response.status));
     dispatch({
@@ -73,26 +79,3 @@ export const logout = () => dispatch => {
     dispatch(handleError(err.response.data, err.response.status));
   };
 };
-
-// export const loadUser = () => async (dispatch, getItem) => {
-//   try {
-//     const token = await localStorage.getItem('token');
-//     if (!token) {
-//       return dispatch({
-//         type: AUTHENTICATION_FAIL
-//       });
-//     };
-//     console.log(token);
-//     const user = await axios.get('/api/user/authenticate', {headers: {'Authorization': token}});
-//     console.log(user.data);
-//     dispatch({
-//       type: USER_LOADED,
-//       payload: user.data
-//     });
-//   } catch (err) {
-//     dispatch(handleError(err.response.data, err.response.status));
-//     dispatch({
-//       type: AUTHENTICATION_FAIL
-//     });
-//   };
-// };
