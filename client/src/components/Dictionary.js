@@ -53,7 +53,7 @@ const Dictionary = ({isAuthenticated}) => {
                     kanji={term.japanese[0].word}
                     kana={term.japanese[0].reading}
                     english={term.senses}
-                    />
+                  />
                 ))}
               </ListGroup>
             </div>

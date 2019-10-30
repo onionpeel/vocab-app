@@ -1,4 +1,16 @@
+<div>{String.fromCharCode(0x2713)} Added</div>
+<div>{"\u2713 Added"}</div>
 
+const english = [{english_definitions: ['a', 'b', 'c']}];
+console.log(english[0].english_definitions.join('; '));
+
+
+// const tempArray = [
+//   {kanji: '本', kana: 'ほん', english: 'book'},
+//   {kanji: '家', kana: 'いえ', english: 'house'},
+//   {kanji: '犬', kana: 'いぬ', english: 'dog'}
+// ];
+// const tempArray = null;
 
 // <Nav.Link eventKey="disabled" disabled style={{color: 'white'}}>
 //   {user && user.name}

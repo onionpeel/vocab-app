@@ -1,4 +1,4 @@
-import {ADD_TERM} from '../actions/types';
+import {ADD_TERM, GET_VOCAB} from '../actions/types';
 
 const initialState = {
   list: []
@@ -7,8 +7,9 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TERM:
+    case GET_VOCAB:
       return {
-        list: [...state.list, action.payload]
+        list: action.payload
       };
     default:
       return state;
