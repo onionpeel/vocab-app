@@ -1,10 +1,10 @@
 import React from 'react';
 import {ListGroup, Row, Col, Container, Alert} from 'react-bootstrap';
-import VocabListTermTemp from './VocabListTermTemp';
-import uuid from 'uuid/v4';
+import VocabListTerm from './VocabListTerm';
 import {connect} from 'react-redux';
 
 const VocabListTerms = ({vocabulary, name}) => {
+  console.log(vocabulary);
   return (
     <Container>
       <Row>
@@ -18,8 +18,8 @@ const VocabListTerms = ({vocabulary, name}) => {
         <Col xs={12} md={6} className="mx-auto">
           <ListGroup variant="flush">
             {vocabulary.map(term => (
-              <VocabListTermTemp
-                key={uuid()}
+              <VocabListTerm
+                key={term._id}
                 kanji={term.kanji}
                 kana={term.kana}
                 english={term.english}

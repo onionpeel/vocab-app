@@ -48,8 +48,8 @@ router.post('/', auth, async (req, res) => {
 router.delete('/', auth, async (req, res) => {
   const id = req.body.id;
   try {
-    await Vocab.deleteOne({_id: id});
-    res.status(201).send();
+    const deletedVocab = await Vocab.deleteOne({_id: id});
+    res.status(201).send(deletedVocab);
   } catch (err) {
     res.status(400).send({message: 'Unable to delete item'});
   };
