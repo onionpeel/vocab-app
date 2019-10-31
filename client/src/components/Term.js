@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {add} from '../actions/vocabActions';
 import uuid from 'uuid/v4';
 
-const Term = ({kanji, kana, english, add}) => {
+const Term = ({kanji, kana, english, add, isAuthenticated}) => {
   const handleOnClick = e => {
     e.preventDefault();
     add({
@@ -14,15 +14,21 @@ const Term = ({kanji, kana, english, add}) => {
     });
   };
 
+  const displayAddButton = () => {
+    return (isAuthenticated
+        &&
+      <Row style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <Button onClick={handleOnClick}>Add</Button>
+      </Row>
+    )
+  };
+
   return (
     <Card style={{marginBottom: 10, padding: 10, boxShadow: "1px 2px 5px grey",
                   backgroundColor: 'rgb(245, 250, 250)'}}>
 
       <Container>
-        <Row style={{display: 'flex', justifyContent: 'flex-end'}}>
-          <Button onClick={handleOnClick}>Add</Button>
-        </Row>
-
+        {displayAddButton()}
         <Row>
           <Col xs={1}></Col>
           <Col xs={10}>
@@ -45,13 +51,16 @@ const Term = ({kanji, kana, english, add}) => {
           <Col xs={1}></Col>
         </Row>
       </Container>
-
     </Card>
   );
 };
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.authenticate.isAuthenticated
+});
 
 const mapDispatchToState = {
   add
 };
 
-export default connect(null, mapDispatchToState)(Term);
+export default connect(mapStateToProps, mapDispatchToState)(Term);
