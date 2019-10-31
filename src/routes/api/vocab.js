@@ -45,11 +45,11 @@ router.post('/', auth, async (req, res) => {
 //@route        DELETE /api/vocab
 //@description  Deletes a vocab term from the db
 //@access       private
-router.delete('/', auth, async (req, res) => {
-  const id = req.body.id;
+router.delete('/:id', auth, async (req, res) => {
+  const id = req.params.id;
   try {
-    const deletedVocab = await Vocab.deleteOne({_id: id});
-    res.status(201).send(deletedVocab);
+    await Vocab.deleteOne({_id: id});
+    res.status(201).send();
   } catch (err) {
     res.status(400).send({message: 'Unable to delete item'});
   };

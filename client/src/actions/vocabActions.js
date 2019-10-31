@@ -32,10 +32,10 @@ export const getVocab = () => async (dispatch, getState) => {
 export const deleteTerm = id => async (dispatch, getState) => {
   try {
     const token = getState().authenticate.token;
-    const deletedVocab = await axios.delete('/api/vocab', {id}, {headers: {'x-auth-token': token}});
+    await axios.delete(`/api/vocab/${id}`, {headers: {'x-auth-token': token}});
     dispatch({
       type: DELETE_TERM,
-      payload: deletedVocab._id
+      payload: id
     });
   } catch (err) {
     dispatch(handleError(err.response.data, err.response.status));

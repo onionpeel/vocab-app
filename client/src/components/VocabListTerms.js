@@ -4,7 +4,6 @@ import VocabListTerm from './VocabListTerm';
 import {connect} from 'react-redux';
 
 const VocabListTerms = ({vocabulary, name}) => {
-  console.log(vocabulary);
   return (
     <Container>
       <Row>
@@ -20,6 +19,7 @@ const VocabListTerms = ({vocabulary, name}) => {
             {vocabulary.map(term => (
               <VocabListTerm
                 key={term._id}
+                id={term._id}
                 kanji={term.kanji}
                 kana={term.kana}
                 english={term.english}

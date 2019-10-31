@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
     case DELETE_TERM:
       return {
         ...state,
-        list: state.vocabulary.list.filter(vocab => vocab._id !== action.payload)
+        list: state.list.filter(vocab => vocab._id !== action.payload)
       };
     default:
       return state;
