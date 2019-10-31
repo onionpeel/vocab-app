@@ -1,8 +1,20 @@
 
 
+// const arr = [{kanji: 'one'}, {kanji: 'two'}, {kanji: 'three'}];
+// const includes = arr.some(obj => obj.kanji === 'four');
+// console.log(includes);
 
-<div>{String.fromCharCode(0x2713)} Added</div>
-<div>{"\u2713 Added"}</div>
+// const x = false;
+// const y = true;
+//
+// if (x || y) {
+//   console.log('true');
+// } else {
+//   console.log('false');
+// };
+
+// <div>{String.fromCharCode(0x2713)} Added</div>
+// <div>{"\u2713 Added"}</div>
 
 // const english = [{english_definitions: ['a', 'b', 'c']}];
 // console.log(english[0].english_definitions.join('; '));

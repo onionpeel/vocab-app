@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {add} from '../actions/vocabActions';
 import uuid from 'uuid/v4';
 
-const Term = ({kanji, kana, english, add, isAuthenticated}) => {
+const Term = ({kanji, kana, english, add, isAuthenticated, list}) => {
   const handleOnClick = e => {
     e.preventDefault();
     add({
@@ -14,13 +14,38 @@ const Term = ({kanji, kana, english, add, isAuthenticated}) => {
     });
   };
 
-  const displayAddButton = () => {
-    return (isAuthenticated
-        &&
-      <Row style={{display: 'flex', justifyContent: 'flex-end'}}>
-        <Button onClick={handleOnClick}>Add</Button>
-      </Row>
-    )
+  const displayStatus = (kanji, kana, list) => {
+    if (isAuthenticated) {
+      if (list.some(term => term.kanji === kanji)) {
+        return (
+          <Row style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              color: "#14a6db",
+              fontSize: "120%"
+             }}>
+            <>{"\u2713 Added!"}</>
+          </Row>
+        );
+      } else if (list.some(term => term.kana === kana)) {
+          return (
+            <Row style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                color: "#14a6db",
+                fontSize: "120%"
+               }}>
+              <>{"\u2713 Added!"}</>
+            </Row>
+          );
+      } else {
+        return (
+          <Row style={{display: 'flex', justifyContent: 'flex-end'}}>
+            <Button onClick={handleOnClick}>Add</Button>
+          </Row>
+        );
+      }
+    };
   };
 
   return (
@@ -28,7 +53,7 @@ const Term = ({kanji, kana, english, add, isAuthenticated}) => {
                   backgroundColor: 'rgb(245, 250, 250)'}}>
 
       <Container>
-        {displayAddButton()}
+        {displayStatus(kanji, kana, list)}
         <Row>
           <Col xs={1}></Col>
           <Col xs={10}>
@@ -56,7 +81,8 @@ const Term = ({kanji, kana, english, add, isAuthenticated}) => {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.authenticate.isAuthenticated
+  isAuthenticated: state.authenticate.isAuthenticated,
+  list: state.vocabulary.list
 });
 
 const mapDispatchToState = {
