@@ -15,12 +15,12 @@ router.get('/', auth, async (req, res) => {
     });
 
     if(filtered.length === 0) {
-      return res.status(200).send();
+      return res.status(200).send([]);
     };
 
     res.status(201).send(filtered);
   } catch (err) {
-    res.status(400).send({message: 'Unable to load items'});
+    res.status(400).send({errors: [{msg: "Unable to load items"}]});
   };
 });
 
@@ -38,7 +38,7 @@ router.post('/', auth, async (req, res) => {
     await term.save();
     res.status(201).send(term);
   } catch (err) {
-    res.status(400).send({message: 'Unable to post item'});
+    res.status(400).send({errors: [{msg: "Unable to post item"}]});
   };
 });
 
@@ -51,7 +51,7 @@ router.delete('/:id', auth, async (req, res) => {
     await Vocab.deleteOne({_id: id});
     res.status(201).send();
   } catch (err) {
-    res.status(400).send({message: 'Unable to delete item'});
+    res.status(400).send({errors: [{msg: "Unable to delete item"}]});
   };
 });
 
@@ -63,11 +63,11 @@ router.delete('/all', auth, async (req, res) => {
     await Vocab.deleteMany({user: req.body.user});
     res.status(200).send();
   } catch (err) {
-    res.status(400).send({message: 'Unable to delete items'});
+    res.status(400).send({errors: [{msg: "Unable to delete items"}]});
   };
 });
 
-//@router       GET /api/vocab/term
+//@router       POST /api/vocab/term
 //@description  Retrieves the specified term from jisho.org api
 //@access       public
 router.post('/term', async (req, res) => {
@@ -77,7 +77,7 @@ router.post('/term', async (req, res) => {
     const data = result.data.data;
     res.status(200).send(data);
    } catch (err) {
-    res.status(500).send({message: 'Unable to retrieve term'});
+    res.status(500).send({errors: [{msg: "Unable to retrieve term"}]});
   };
 });
 

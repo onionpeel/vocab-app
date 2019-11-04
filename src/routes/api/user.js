@@ -10,9 +10,9 @@ const bcrypt = require('bcryptjs');
 //@description    Creates a new user in db
 //@access         public
 router.post('/', [
-    check('name').isLength({min: 1}),
-    check('email').isEmail(),
-    check('password').isLength({min: 6})
+    check('name').isLength({min: 1}).withMessage('Please enter a user name'),
+    check('email').isEmail().withMessage('An email address is necessary to register'),
+    check('password').isLength({min: 6}).withMessage('Your password needs to be at least 6 characters long')
   ],
   async (req, res) => {
     //handle any validation errors
@@ -24,6 +24,11 @@ router.post('/', [
     const {name, email, password} = req.body;
 
     try {
+      //Check if the user name already exists
+      const existingUser = await User.findOne({email});
+      if (existingUser) {
+        return res.status(400).send({errors: [{msg: "A user with that email already exists"}]});
+      };
       //Create and save user in db with hashed password
       const newUser = new User({
         name,
@@ -47,8 +52,8 @@ router.post('/', [
 //@description    logs in a user
 //@access         public
 router.post('/login', [
-    check('email').isEmail(),
-    check('password').isLength({min: 6})
+    check('email').isEmail().withMessage('An email address is necessary to register'),
+    check('password').isLength({min: 6}).withMessage('Your password needs to be at least 6 characters long')
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -87,7 +92,7 @@ router.get('/authenticate', auth, async (req, res) => {
     console.log('attempting call to api/user/authenticate')
     res.status(200).send(req.user);
   } catch (err) {
-    res.status(400).send({message: 'User not found'});
+    res.status(400).send({errors: [{msg: "User not found"}]});
   };
 });
 

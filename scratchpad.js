@@ -1,5 +1,13 @@
 
 
+// const clearError = dispatch => {
+//   dispatch({
+//     type: CLEAR_ERROR
+//   });
+// };
+//
+// console.log(clearError);
+
 // const arr = [{kanji: 'one'}, {kanji: 'two'}, {kanji: 'three'}];
 // const includes = arr.some(obj => obj.kanji === 'four');
 // console.log(includes);

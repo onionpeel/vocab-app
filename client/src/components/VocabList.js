@@ -5,6 +5,7 @@ import {Container} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {getVocab} from '../actions/vocabActions';
+import PropTypes from 'prop-types';
 
 const VocabList = ({list, getVocab}) => {
   useEffect(() => {
@@ -18,6 +19,11 @@ const VocabList = ({list, getVocab}) => {
       </Container>
     </div>
   );
+};
+
+VocabList.propTypes = {
+  list: PropTypes.array,
+  getVocab: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

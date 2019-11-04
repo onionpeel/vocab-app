@@ -1,4 +1,4 @@
-import {NEW_ERROR} from './types';
+import {NEW_ERROR, CLEAR_ERROR} from './types';
 
 export const handleError = (message, status) => {
   return {
@@ -8,4 +8,10 @@ export const handleError = (message, status) => {
       status
     }
   };
+};
+
+export const clearError = () => async dispatch => {
+  dispatch({
+    type: CLEAR_ERROR
+  });
 };

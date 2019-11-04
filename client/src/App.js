@@ -6,7 +6,6 @@ import Dictionary from './components/Dictionary';
 import VocabList from './components/VocabList';
 import Registration from './components/Registration';
 import Header from './components/Header';
-import LoginPage from './components/LoginPage';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router,
   Switch,
@@ -43,7 +42,6 @@ const App = ({isAuthenticated}) => {
           <Route exact path='/' component={Home} />
           <Route path='/dictionary' component={Dictionary} />
           <Route path='/about' component={About} />
-          <Route path='/login' component={LoginPage} />
           <Route path='/registration' component={Registration} />
           <PrivateRoute path='/vocablist' isAuthenticated={isAuthenticated} component={VocabList} />
         </Switch>

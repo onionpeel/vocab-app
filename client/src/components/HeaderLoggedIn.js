@@ -3,6 +3,7 @@ import {Navbar, Nav} from 'react-bootstrap';
 import './Header.css';
 import {logout} from '../actions/authActions';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 const HeaderLoggedIn = ({authenticate: {user}, logout}) => {
   const handleOnClick = e => {
@@ -24,6 +25,12 @@ const HeaderLoggedIn = ({authenticate: {user}, logout}) => {
       </Navbar.Collapse>
     </Navbar>
   );
+};
+
+HeaderLoggedIn.propTypes = {
+  logout: PropTypes.func.isRequired,
+  authenticate: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

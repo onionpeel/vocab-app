@@ -3,6 +3,7 @@ import {Card, Row, Col, Button, Container} from 'react-bootstrap';
 import uuid from 'uuid/v4';
 import {connect} from 'react-redux';
 import {deleteTerm} from '../actions/vocabActions';
+import PropTypes from 'prop-types';
 
 const VocabListTerm = ({kanji, kana, english, id, deleteTerm}) => {
   return (
@@ -41,6 +42,14 @@ const VocabListTerm = ({kanji, kana, english, id, deleteTerm}) => {
       </Container>
     </Card>
   );
+};
+
+VocabListTerm.propTypes = {
+  kanji: PropTypes.string,
+  kana: PropTypes.string,
+  english: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  deleteTerm: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = {

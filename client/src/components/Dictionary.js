@@ -5,6 +5,7 @@ import SignUpReminder from './SignUpReminder';
 import axios from 'axios';
 import uuid from 'uuid/v4';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 const Dictionary = ({isAuthenticated}) => {
   const [terms, setTerms] = useState([]);
@@ -16,6 +17,7 @@ const Dictionary = ({isAuthenticated}) => {
 
   const fetchData = async e => {
     e.preventDefault();
+    if (searchWord.length === 0) return;
     const response = await axios.post('/api/vocab/term', {term: searchWord});
     setTerms(response.data);
     setSearchWord('');
@@ -67,6 +69,10 @@ const Dictionary = ({isAuthenticated}) => {
       </Container>
     </div>
   );
+};
+
+Dictionary.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({

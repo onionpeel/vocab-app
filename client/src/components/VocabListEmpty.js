@@ -2,6 +2,7 @@ import React from 'react';
 import {Image, Row, Col} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const VocabListEmpty = ({name}) => {
   return (
@@ -19,6 +20,10 @@ const VocabListEmpty = ({name}) => {
       </Row>
     </div>
   );
+};
+
+VocabListEmpty.propTypes = {
+  name: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({

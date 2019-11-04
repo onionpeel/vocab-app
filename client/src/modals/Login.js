@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {Modal, Button, Form} from 'react-bootstrap';
+import {Modal, Button, Form, Alert} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import IsLoadingAlert from '../components/IsLoadingAlert';
 import {login} from '../actions/authActions';
+import PropTypes from 'prop-types';
 
-const Login = ({onHide, show, isLoading, login}) => {
+const Login = ({onHide, show, isLoading, login, error: {message}}) => {
   const [user, setUser] = useState({
     password: '',
     email: ''
@@ -72,8 +73,18 @@ const Login = ({onHide, show, isLoading, login}) => {
   );
 };
 
+Login.propTypes = {
+  onHide: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
+  login: PropTypes.func.isRequired,
+  error: PropTypes.object,
+  message: PropTypes.string
+};
+
 const mapStateToProps = state => ({
-  isLoading: state.authenticate.isLoading
+  isLoading: state.authenticate.isLoading,
+  error: state.errors
 });
 
 const mapDispatchToProps = {

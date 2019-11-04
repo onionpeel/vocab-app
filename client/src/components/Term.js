@@ -3,6 +3,7 @@ import {Card, Row, Col, Button, Container} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {add} from '../actions/vocabActions';
 import uuid from 'uuid/v4';
+import PropTypes from 'prop-types';
 
 const Term = ({kanji, kana, english, add, isAuthenticated, list}) => {
   const handleOnClick = e => {
@@ -78,6 +79,15 @@ const Term = ({kanji, kana, english, add, isAuthenticated, list}) => {
       </Container>
     </Card>
   );
+};
+
+Term.propTypes = {
+  kanji: PropTypes.string,
+  kana: PropTypes.string,
+  english: PropTypes.array,
+  add: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  list: PropTypes.array
 };
 
 const mapStateToProps = state => ({

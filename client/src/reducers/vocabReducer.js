@@ -9,6 +9,7 @@ export default (state = initialState, action) => {
     case ADD_TERM:
     case GET_VOCAB:
       return {
+        ...state,
         list: action.payload
       };
     case DELETE_TERM:

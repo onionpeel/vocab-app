@@ -2,6 +2,7 @@ import React from 'react';
 import {ListGroup, Row, Col, Container, Alert} from 'react-bootstrap';
 import VocabListTerm from './VocabListTerm';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 const VocabListTerms = ({vocabulary, name}) => {
   return (
@@ -30,6 +31,11 @@ const VocabListTerms = ({vocabulary, name}) => {
       </Row>
     </Container>
   );
+};
+
+VocabListTerms.propTypes = {
+  vocabulary: PropTypes.array.isRequired,
+  name: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({

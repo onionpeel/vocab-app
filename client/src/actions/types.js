@@ -10,3 +10,4 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const ADD_TERM = 'ADD_TERM';
 export const GET_VOCAB = 'GET_VOCAB';
 export const DELETE_TERM = 'DELETE_TERM';
+export const CLEAR_ERROR = 'CLEAR_ERROR';

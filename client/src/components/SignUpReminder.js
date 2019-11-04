@@ -1,6 +1,7 @@
 import React from 'react';
 import {Alert} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const SignUpReminder = ({terms}) => (
   <>
@@ -15,5 +16,9 @@ const SignUpReminder = ({terms}) => (
     }
   </>
 );
+
+SignUpReminder.propTypes = {
+  terms: PropTypes.array
+};
 
 export default SignUpReminder;

@@ -16,7 +16,6 @@ export const registerUser = user => async dispatch => {
     dispatch({
       type: IS_LOADING
     });
-
     const newUser = await axios.post('/api/user', user);
     dispatch({
       type: REGISTER_SUCCESS,
