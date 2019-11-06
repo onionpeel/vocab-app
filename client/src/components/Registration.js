@@ -47,6 +47,13 @@ const Registration = ({registerUser, isAuthenticated, isLoading, errorStatus, er
         {errorStatus && <Alert style={{textAlign:'center', backgroundColor:'#ebeded'}}>{errorMessage.msg}</Alert>}
         <Row>
           <Col xs={12} md={6} className="mx-auto" style={{marginTop:15}}>
+            <Alert style={{backgroundColor: 'rgb(196, 233, 245)'}}>
+              This is a development app, so use a fake email (but remember your password so you can sign in again).
+            </Alert>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} md={6} className="mx-auto" style={{marginTop:15}}>
             <Form onSubmit={handleOnSubmit}>
               <Form.Group>
                 <Form.Label>Name</Form.Label>

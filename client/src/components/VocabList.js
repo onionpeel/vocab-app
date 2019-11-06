@@ -3,7 +3,6 @@ import VocabListTerms from './VocabListTerms';
 import VocabListEmpty from './VocabListEmpty';
 import {Container} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import axios from 'axios';
 import {getVocab} from '../actions/vocabActions';
 import PropTypes from 'prop-types';
 

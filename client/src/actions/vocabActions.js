@@ -5,7 +5,7 @@ import {handleError} from './errorActions';
 export const add = term => async (dispatch, getState) => {
   try {
     const token = getState().authenticate.token;
-    const savedTerm = await axios.post('/api/vocab', term, {headers: {'x-auth-token': token}});
+    await axios.post('/api/vocab', term, {headers: {'x-auth-token': token}});
     const vocabList = await axios.get('/api/vocab', {headers: {'x-auth-token': token}});
     dispatch({
       type: ADD_TERM,

@@ -67,13 +67,13 @@ router.delete('/all', auth, async (req, res) => {
   };
 });
 
-//@router       POST /api/vocab/term
-//@description  Retrieves the specified term from jisho.org api
+//@router       POST /api/vocab/page
+//@description  Retrieves the specified term from jisho.org api based on page number
 //@access       public
-router.post('/term', async (req, res) => {
+router.post('/page', async (req, res) => {
   try {
-    const {term} = req.body;
-    const result = await axios.get(`https://jisho.org/api/v1/search/words?keyword=${term}`);
+    const {term, page} = req.body;
+    const result = await axios.get(`https://jisho.org/api/v1/search/words?keyword=${term}&page=${page}`);
     const data = result.data.data;
     res.status(200).send(data);
    } catch (err) {

@@ -1,3 +1,38 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import {Pagination} from 'react-bootstrap';
+
+const Paginate = ({termsPerPage, totalTerms, currentPage, paginate, seeMore}) => {
+  const pageNumbers = [];
+  let active = currentPage;
+
+  for(let i = 1; i <= Math.ceil(totalTerms / termsPerPage); i++) {
+    pageNumbers.push(
+      <Pagination.Item key={i} active={i === active} onClick={() => paginate(i)}>
+        {i}
+      </Pagination.Item>
+    );
+  };
+
+  return (
+    <Pagination>
+      {pageNumbers.length > 1 && <Pagination.First onClick={() => paginate(1)}/>}
+      {pageNumbers.length > 0 && <Pagination.Prev>Previous</Pagination.Prev>}
+      {pageNumbers}
+      {pageNumbers.length > 0 && <Pagination.Next>See more</Pagination.Next>}
+    </Pagination>
+  );
+};
+
+Paginate.propTypes = {
+  termsPerPage: PropTypes.number.isRequired,
+  totalTerms: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  paginate: PropTypes.func.isRequired,
+  seeMore: PropTypes.func.isRequired
+};
+
+export default Paginate;
 
 
 // const clearError = dispatch => {

@@ -9,7 +9,6 @@ import {REGISTER_SUCCESS,
         LOGIN_FAIL,
         GET_VOCAB} from './types';
 import {handleError} from './errorActions';
-import {getVocab} from './vocabActions';
 
 export const registerUser = user => async dispatch => {
   try {

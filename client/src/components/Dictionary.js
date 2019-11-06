@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {Container, Col, Row, Form, Button, Image, ListGroup} from 'react-bootstrap';
 import Term from './Term';
 import SignUpReminder from './SignUpReminder';
+import PaginateFirst from './PaginateFirst';
+import PaginateOthers from './PaginateOthers';
 import axios from 'axios';
 import uuid from 'uuid/v4';
 import {connect} from 'react-redux';
@@ -10,6 +12,7 @@ import PropTypes from 'prop-types';
 const Dictionary = ({isAuthenticated}) => {
   const [terms, setTerms] = useState([]);
   const [searchWord, setSearchWord] = useState('');
+  let [currentPage, setCurrentPage] = useState(1);
 
   const setQuery = e => {
     setSearchWord(e.target.value);
@@ -17,14 +20,56 @@ const Dictionary = ({isAuthenticated}) => {
 
   const fetchData = async e => {
     e.preventDefault();
+    setCurrentPage(1);
     if (searchWord.length === 0) return;
-    const response = await axios.post('/api/vocab/term', {term: searchWord});
+    const response = await axios.post('/api/vocab/page', {term: searchWord, page: currentPage});
     setTerms(response.data);
-    setSearchWord('');
   };
 
   const showSignUpAlert = () => {
     return (!isAuthenticated && <SignUpReminder terms={terms}/>);
+  };
+
+  const showPagination = () => {
+    if (terms.length > 0) {
+      return (
+        currentPage === 1 ?
+          <PaginateFirst
+              currentPage={currentPage}
+              nextPage={nextPage}
+            />
+          :
+          <PaginateOthers
+              currentPage={currentPage}
+              paginate={paginate}
+              prevPage={prevPage}
+              nextPage={nextPage}
+            />
+      );
+    };
+  };
+
+  const paginate = async pageNumber => {
+    setCurrentPage(pageNumber);
+    const response = await axios.post('/api/vocab/page', {term: searchWord, page: pageNumber});
+    setTerms(response.data);
+    window.scrollTo(0,0);
+  };
+
+  const prevPage = async pageNumber => {
+    if (pageNumber > 1) {
+      setCurrentPage(--currentPage);
+      const response = await axios.post('/api/vocab/page', {term: searchWord, page: currentPage});
+      setTerms(response.data);
+      window.scrollTo(0,0);
+    };
+  };
+
+  const nextPage = async pageNumber => {
+    setCurrentPage(++currentPage);
+    const response = await axios.post('/api/vocab/page', {term: searchWord, page: currentPage});
+    setTerms(response.data);
+    window.scrollTo(0,0);
   };
 
   return (
@@ -36,7 +81,7 @@ const Dictionary = ({isAuthenticated}) => {
               <Form className="mt-2" onSubmit={fetchData}>
                 <Form.Group>
                   <Form.Label>Find that Japanese word you've always longed for</Form.Label>
-                  <Form.Control type="text" placeholder="What's taking you so long?" value={searchWord} onChange={setQuery}/>
+                  <Form.Control type="search" placeholder="What's taking you so long?" value={searchWord} onChange={setQuery}/>
                   <Form.Text className="text-muted">
                     Life fulfillment is a click away.
                   </Form.Text>
@@ -48,6 +93,7 @@ const Dictionary = ({isAuthenticated}) => {
             </div>
             <div>
               {showSignUpAlert()}
+              {showPagination()}
               <ListGroup variant="flush">
                 {terms.map(term => (
                   <Term
@@ -58,6 +104,7 @@ const Dictionary = ({isAuthenticated}) => {
                   />
                 ))}
               </ListGroup>
+              {showPagination()}
             </div>
           </Col>
 
