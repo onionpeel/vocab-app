@@ -9,6 +9,7 @@ import uuid from 'uuid/v4';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
+import bookstoreCropped from '../images/bookstoreCropped.jpg';
 
 const Search = ({isAuthenticated, match}) => {
   const [terms, setTerms] = useState([]);
@@ -118,6 +119,11 @@ const Search = ({isAuthenticated, match}) => {
     };
   };
 
+  // const loadImage = () => {
+  //   console.log(path.join(__dirname, '../../public', `${searchWord}/${currentPage}`, 'assets/bookstoreCropped.jpg'))
+  //   return <Image src={`path.join(__dirname, '../../public', `${searchWord}/${currentPage}`, 'assets/bookstoreCropped.jpg')`} className="img-fluid" rounded/>;
+  // };
+
   return (
     <div>
     {queryVocab()}
@@ -156,6 +162,7 @@ const Search = ({isAuthenticated, match}) => {
           </Col>
 
           <Col xs={12} lg={5} className="sidebar-section">
+            <Image src={bookstoreCropped} className="img-fluid" rounded/>
             <p>I've lived here my whole life and still can't read this stuff.  I wish I had a convenient tool for looking up the meaning of these words.</p>
           </Col>
         </Row>
