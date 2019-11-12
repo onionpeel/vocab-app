@@ -30,7 +30,7 @@ const HeaderLoggedIn = ({authenticate: {user}, logout}) => {
 HeaderLoggedIn.propTypes = {
   logout: PropTypes.func.isRequired,
   authenticate: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object
 };
 
 const mapStateToProps = state => ({

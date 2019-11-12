@@ -3,9 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/Home';
 import About from './components/About';
 import Dictionary from './components/Dictionary';
+import Search from './components/Search';
 import VocabList from './components/VocabList';
 import Registration from './components/Registration';
 import Header from './components/Header';
+import NoMatch from './components/NoMatch';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router,
   Switch,
@@ -40,7 +42,8 @@ const App = ({isAuthenticated}) => {
 
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/dictionary' component={Dictionary} />
+          <Route exact path='/dictionary' component={Dictionary} />
+          <Route path='/search/:term/:page' component={Search} />
           <Route path='/about' component={About} />
           <Route path='/registration' component={Registration} />
           <PrivateRoute path='/vocablist' isAuthenticated={isAuthenticated} component={VocabList} />

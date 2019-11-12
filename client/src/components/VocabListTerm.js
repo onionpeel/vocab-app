@@ -47,7 +47,7 @@ const VocabListTerm = ({kanji, kana, english, id, deleteTerm}) => {
 VocabListTerm.propTypes = {
   kanji: PropTypes.string,
   kana: PropTypes.string,
-  english: PropTypes.string,
+  english: PropTypes.array,
   id: PropTypes.string.isRequired,
   deleteTerm: PropTypes.func.isRequired
 };

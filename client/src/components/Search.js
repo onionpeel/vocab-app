@@ -8,43 +8,36 @@ import axios from 'axios';
 import uuid from 'uuid/v4';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {Redirect, useHistory} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
-const Dictionary = ({isAuthenticated, match}) => {
+const Search = ({isAuthenticated, match}) => {
   const [terms, setTerms] = useState([]);
-  const [searchWord, setSearchWord] = useState('');
-  let [currentPage, setCurrentPage] = useState(1);
+  const [searchWord, setSearchWord] = useState(match.params.term);
+  let [currentPage, setCurrentPage] = useState(parseInt(match.params.page));
 
   let [isQuery, setIsQuery] = useState(false);
 
-  let history = useHistory();
+  useEffect(() => {
+    const fetchByQuery = async () => {
+      const response = await axios.get(`/api/vocab/${match.params.term}/${match.params.page}`);
+      setTerms(response.data);
+    };
 
-  // useEffect(() => {
-  //   console.log(match.params.term);
-  //   console.log(match.params.page);
-  //
-  //   const fetchByQuery = async () => {
-  //     if (match.term > 0) {
-  //       const response = await axios.post(`/api/vocab/${match.params.term}/${match.params.page}`);
-  //       setTerms(response.data);
-  //     };
-  //   };
-  //
-  //   fetchByQuery();
-  // }, []);
+    fetchByQuery();
+  }, []);
 
   const setQuery = e => {
     setSearchWord(e.target.value);
   };
 
-  const fetchData = e => {
+  const fetchData = async e => {
     e.preventDefault();
     setCurrentPage(1);
     if (searchWord.length === 0) return;
-    // const response = await axios.post(`/api/vocab/${searchWord}/${currentPage}`);
-    // setTerms(response.data);
-    // history.push(`/dictionary/${searchWord}/${currentPage}`);
+    const response = await axios.get(`/api/vocab/${searchWord}/${currentPage}`);
+    setTerms(response.data);
     setIsQuery(true);
+    setIsQuery(false);
   };
 
   // const fetchData = async e => {
@@ -80,36 +73,54 @@ const Dictionary = ({isAuthenticated, match}) => {
 
   const paginate = async pageNumber => {
     setCurrentPage(pageNumber);
-    const response = await axios.post('/api/vocab/page', {term: searchWord, page: pageNumber});
+    const response = await axios.get(`/api/vocab/${searchWord}/${pageNumber}`);
     setTerms(response.data);
     window.scrollTo(0,0);
+    setIsQuery(true);
+    setIsQuery(false);
   };
 
   const prevPage = async pageNumber => {
     if (pageNumber > 1) {
       setCurrentPage(--currentPage);
-      const response = await axios.post('/api/vocab/page', {term: searchWord, page: currentPage});
+      const response = await axios.get(`/api/vocab/${searchWord}/${currentPage}`);
       setTerms(response.data);
       window.scrollTo(0,0);
+      setIsQuery(true);
+      setIsQuery(false);
     };
   };
 
-  const nextPage = async pageNumber => {
+
+  // const nextPage = async pageNumber => {
+  //   setCurrentPage(++currentPage);
+  //   const response = await axios.get(`/api/vocab/${searchWord}/${currentPage}`);
+  //   setTerms(response.data);
+  //   window.scrollTo(0,0);
+  //   return <Redirect to={`/search/${searchWord}/${currentPage}`} />
+  // };
+
+  const nextPage = async () => {
     setCurrentPage(++currentPage);
-    const response = await axios.post('/api/vocab/page', {term: searchWord, page: currentPage});
+    const response = await axios.get(`/api/vocab/${searchWord}/${currentPage}`);
     setTerms(response.data);
     window.scrollTo(0,0);
+    setIsQuery(true);
+    setIsQuery(false);
   };
 
   const queryVocab = () => {
     if (isQuery) {
+      // console.log('queryVocab isQuery: ', isQuery)
+      // console.log('currentPage: ', currentPage)
+      // console.log('searchWord: ', searchWord)
       return <Redirect to={`/search/${searchWord}/${currentPage}`} />
     };
   };
 
   return (
     <div>
-      {queryVocab()}
+    {queryVocab()}
       <Container>
         <Row>
           <Col>
@@ -145,7 +156,6 @@ const Dictionary = ({isAuthenticated, match}) => {
           </Col>
 
           <Col xs={12} lg={5} className="sidebar-section">
-            <Image src='assets/bookstoreCropped.jpg' className="img-fluid" rounded/>
             <p>I've lived here my whole life and still can't read this stuff.  I wish I had a convenient tool for looking up the meaning of these words.</p>
           </Col>
         </Row>
@@ -154,7 +164,7 @@ const Dictionary = ({isAuthenticated, match}) => {
   );
 };
 
-Dictionary.propTypes = {
+Search.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired
 };
 
@@ -162,4 +172,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.authenticate.isAuthenticated
 });
 
-export default connect(mapStateToProps)(Dictionary);
+export default connect(mapStateToProps)(Search);

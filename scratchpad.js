@@ -1,4 +1,12 @@
-<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+<Route component={NoMatch} />
+
+// const test = ({a: A, ...rest}) => {
+//   console.log(A, rest);
+// };
+//
+// test({a: 5, b:1, c:2});
+
+// <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
 
 // import React from 'react';
 // import PropTypes from 'prop-types';

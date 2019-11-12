@@ -14,9 +14,6 @@ const Dictionary = ({isAuthenticated, match}) => {
   const [terms, setTerms] = useState([]);
   const [searchWord, setSearchWord] = useState('');
   let [currentPage, setCurrentPage] = useState(1);
-
-  let [isQuery, setIsQuery] = useState(false);
-
   let history = useHistory();
 
   // useEffect(() => {
@@ -37,14 +34,13 @@ const Dictionary = ({isAuthenticated, match}) => {
     setSearchWord(e.target.value);
   };
 
-  const fetchData = e => {
+  const fetchData = async e => {
     e.preventDefault();
     setCurrentPage(1);
     if (searchWord.length === 0) return;
-    // const response = await axios.post(`/api/vocab/${searchWord}/${currentPage}`);
-    // setTerms(response.data);
-    // history.push(`/dictionary/${searchWord}/${currentPage}`);
-    setIsQuery(true);
+    const response = await axios.post(`/api/vocab/${searchWord}/${currentPage}`);
+    setTerms(response.data);
+    history.push(`/dictionary/${searchWord}/${currentPage}`);
   };
 
   // const fetchData = async e => {
@@ -101,15 +97,8 @@ const Dictionary = ({isAuthenticated, match}) => {
     window.scrollTo(0,0);
   };
 
-  const queryVocab = () => {
-    if (isQuery) {
-      return <Redirect to={`/search/${searchWord}/${currentPage}`} />
-    };
-  };
-
   return (
     <div>
-      {queryVocab()}
       <Container>
         <Row>
           <Col>
