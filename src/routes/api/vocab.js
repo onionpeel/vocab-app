@@ -3,6 +3,8 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const Vocab = require('../../models/Vocab');
 const axios = require('axios');
+const cache = require('../../cache/cache');
+const {redisSet} = require('../../cache/cacheUtils');
 
 //@route        GET /api/vocab
 //@description  Retrieves all vocab terms from db
@@ -67,28 +69,19 @@ router.delete('/all', auth, async (req, res) => {
   };
 });
 
-//@router       POST /api/vocab/page
+//@router       GET /api/vocab/:term/:page
 //@description  Retrieves the specified term from jisho.org api based on page number
 //@access       public
-// router.post('/page', async (req, res) => {
-//   try {
-//     const {term, page} = req.body;
-//     const result = await axios.get(`https://jisho.org/api/v1/search/words?keyword=${term}&page=${page}`);
-//     const data = result.data.data;
-//     res.status(200).send(data);
-//    } catch (err) {
-//     res.status(500).send({errors: [{msg: "Unable to retrieve term"}]});
-//   };
-// });
-
-//@router       POST /api/vocab/:term/:page
-//@description  Retrieves the specified term from jisho.org api based on page number
-//@access       public
-router.get('/:term/:page', async (req, res) => {
+router.get('/:term/:page', cache, async (req, res) => {
   try {
     const {term, page} = req.params;
     const result = await axios.get(`https://jisho.org/api/v1/search/words?keyword=${term}&page=${page}`);
     const data = result.data.data;
+
+    const jsonData = JSON.stringify(data);
+    const redisKey = `${term}_${page}`;
+    await redisSet(redisKey, jsonData);
+
     res.status(200).send(data);
    } catch (err) {
     res.status(500).send({errors: [{msg: "Unable to retrieve term"}]});
