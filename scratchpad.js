@@ -1,4 +1,6 @@
-<Route component={NoMatch} />
+// true ? (let x = 3) console.log(x) : console.log('no')
+
+// <Route component={NoMatch} />
 
 // const test = ({a: A, ...rest}) => {
 //   console.log(A, rest);

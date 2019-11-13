@@ -47,6 +47,7 @@ const App = ({isAuthenticated}) => {
           <Route path='/about' component={About} />
           <Route path='/registration' component={Registration} />
           <PrivateRoute path='/vocablist' isAuthenticated={isAuthenticated} component={VocabList} />
+          <Route component={NoMatch} />
         </Switch>
       </div>
     </Router>

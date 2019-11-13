@@ -1,10 +1,48 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ListGroup, Row, Col, Container, Alert} from 'react-bootstrap';
 import VocabListTerm from './VocabListTerm';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import VocabListPaginate from './VocabListPaginate';
+import {Redirect} from 'react-router-dom';
 
 const VocabListTerms = ({vocabulary, name}) => {
+  let [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 10;
+  let lastPostIndex = currentPage * postsPerPage;
+  let firstPostIndex = lastPostIndex - postsPerPage;
+  let displayedTerms = vocabulary.slice(firstPostIndex, lastPostIndex);
+  let totalPages = Math.ceil(vocabulary.length / postsPerPage);
+
+  const showPagination = () => {
+    return vocabulary.length > 10
+        &&
+      <VocabListPaginate
+        currentPage={currentPage}
+        paginate={paginate}
+        prevPage={prevPage}
+        nextPage={nextPage}
+        totalPages={totalPages}
+      />
+  };
+
+  const paginate = async pageNumber => {
+    setCurrentPage(pageNumber);
+    window.scrollTo(0,0);
+  };
+
+  const prevPage = async pageNumber => {
+    if (pageNumber > 1) {
+      setCurrentPage(--currentPage);
+      window.scrollTo(0,0);
+    };
+  };
+
+  const nextPage = async () => {
+    setCurrentPage(++currentPage);
+    window.scrollTo(0,0);
+  };
+
   return (
     <Container>
       <Row>
@@ -16,8 +54,9 @@ const VocabListTerms = ({vocabulary, name}) => {
       </Row>
       <Row>
         <Col xs={12} md={6} className="mx-auto">
+          {showPagination()}
           <ListGroup variant="flush">
-            {vocabulary.map(term => (
+            {displayedTerms.map(term => (
               <VocabListTerm
                 key={term._id}
                 id={term._id}
@@ -27,6 +66,7 @@ const VocabListTerms = ({vocabulary, name}) => {
               />
             ))}
           </ListGroup>
+          {showPagination()}
         </Col>
       </Row>
     </Container>

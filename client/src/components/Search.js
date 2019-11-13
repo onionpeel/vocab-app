@@ -41,14 +41,6 @@ const Search = ({isAuthenticated, match}) => {
     setIsQuery(false);
   };
 
-  // const fetchData = async e => {
-  //   e.preventDefault();
-  //   setCurrentPage(1);
-  //   if (searchWord.length === 0) return;
-  //   const response = await axios.post('/api/vocab/page', {term: searchWord, page: currentPage});
-  //   setTerms(response.data);
-  // };
-
   const showSignUpAlert = () => {
     return (!isAuthenticated && <SignUpReminder terms={terms}/>);
   };
@@ -92,15 +84,6 @@ const Search = ({isAuthenticated, match}) => {
     };
   };
 
-
-  // const nextPage = async pageNumber => {
-  //   setCurrentPage(++currentPage);
-  //   const response = await axios.get(`/api/vocab/${searchWord}/${currentPage}`);
-  //   setTerms(response.data);
-  //   window.scrollTo(0,0);
-  //   return <Redirect to={`/search/${searchWord}/${currentPage}`} />
-  // };
-
   const nextPage = async () => {
     setCurrentPage(++currentPage);
     const response = await axios.get(`/api/vocab/${searchWord}/${currentPage}`);
@@ -112,17 +95,9 @@ const Search = ({isAuthenticated, match}) => {
 
   const queryVocab = () => {
     if (isQuery) {
-      // console.log('queryVocab isQuery: ', isQuery)
-      // console.log('currentPage: ', currentPage)
-      // console.log('searchWord: ', searchWord)
       return <Redirect to={`/search/${searchWord}/${currentPage}`} />
     };
   };
-
-  // const loadImage = () => {
-  //   console.log(path.join(__dirname, '../../public', `${searchWord}/${currentPage}`, 'assets/bookstoreCropped.jpg'))
-  //   return <Image src={`path.join(__dirname, '../../public', `${searchWord}/${currentPage}`, 'assets/bookstoreCropped.jpg')`} className="img-fluid" rounded/>;
-  // };
 
   return (
     <div>
