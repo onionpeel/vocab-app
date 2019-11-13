@@ -1,0 +1,4 @@
+{
+  "mongoDbUri": process.env.MONGODB_URI,
+  "JWTPrivateKey": process.env.JWT_PRIVATE_KEY
+}
