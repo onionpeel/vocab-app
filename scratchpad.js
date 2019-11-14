@@ -1,3 +1,14 @@
+// const displayEnv = (env1, env2) => {
+//   console.log(env1);
+//   console.log(env2);
+// };
+//
+// let x = 1;
+// let y = false;
+// let z = 3;
+//
+// displayEnv(x, y || z)
+
 // true ? (let x = 3) console.log(x) : console.log('no')
 
 // <Route component={NoMatch} />

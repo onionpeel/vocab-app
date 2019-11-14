@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
       return res.status(401).send({message: 'No token exists'});
     };
 
-    const decoded = jwt.verify(token, config.get('JWTPrivateKey'));
+    const decoded = jwt.verify(token, process.env.JWT_PRIVATE_KEY || config.get('JWTPrivateKey'));
     const user = await User.findOne({_id: decoded.id});
 
     if (!user) {
