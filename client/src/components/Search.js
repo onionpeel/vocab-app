@@ -4,6 +4,8 @@ import Term from './Term';
 import SignUpReminder from './SignUpReminder';
 import PaginateFirst from './PaginateFirst';
 import PaginateOthers from './PaginateOthers';
+import PaginateLast from './PaginateLast';
+import PaginateNoMatch from './PaginateNoMatch';
 import axios from 'axios';
 import uuid from 'uuid/v4';
 import {connect} from 'react-redux';
@@ -13,6 +15,7 @@ import bookstoreCropped from '../images/bookstoreCropped.jpg';
 
 const Search = ({isAuthenticated, match}) => {
   const [terms, setTerms] = useState([]);
+  const [isLastPage, setIsLastPage] = useState(false);
   const [searchWord, setSearchWord] = useState(match.params.term);
   let [currentPage, setCurrentPage] = useState(parseInt(match.params.page));
 
@@ -45,28 +48,42 @@ const Search = ({isAuthenticated, match}) => {
     return (!isAuthenticated && <SignUpReminder terms={terms}/>);
   };
 
+  const noMatch = () => {
+    if (terms.length === 0) {
+      return <PaginateNoMatch />
+    };
+  };
+
   const showPagination = () => {
     if (terms.length > 0) {
       return (
-        currentPage === 1 ?
-          <PaginateFirst
-              currentPage={currentPage}
-              nextPage={nextPage}
-            />
-          :
-          <PaginateOthers
-              currentPage={currentPage}
-              paginate={paginate}
-              prevPage={prevPage}
-              nextPage={nextPage}
-            />
-      );
+       currentPage === 1 ?
+         <PaginateFirst
+             currentPage={currentPage}
+             nextPage={nextPage}
+             termLength={terms.length}
+           />
+         :
+       (20 / terms.length === 1) ?
+         <PaginateOthers
+             currentPage={currentPage}
+             paginate={paginate}
+             prevPage={prevPage}
+             nextPage={nextPage}
+           />
+         :
+         <PaginateLast
+           currentPage={currentPage}
+           paginate={paginate}
+           prevPage={prevPage}
+         />
+       );
     };
   };
 
   const paginate = async pageNumber => {
-    setCurrentPage(pageNumber);
     const response = await axios.get(`/api/vocab/${searchWord}/${pageNumber}`);
+    setCurrentPage(pageNumber);
     setTerms(response.data);
     window.scrollTo(0,0);
     setIsQuery(true);
@@ -121,6 +138,7 @@ const Search = ({isAuthenticated, match}) => {
             </div>
             <div>
               {showSignUpAlert()}
+              {noMatch()}
               {showPagination()}
               <ListGroup variant="flush">
                 {terms.map(term => (

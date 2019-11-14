@@ -1,3 +1,12 @@
+Local
+A redis server needs to be running locally on port 6379.
+Set up a remote MongoDB database.
+
+Inside default.json set the values for the database connection (including password and account name) and JWTPrivateKey.
+For production, those values should be set on the server with the names MONGODB_URI and JWT_PRIVATE_KEY.
+
+
+
 // const displayEnv = (env1, env2) => {
 //   console.log(env1);
 //   console.log(env2);
