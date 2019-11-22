@@ -15,3 +15,9 @@
   text-align: center;
   margin: 0.5em;
 }
+
+.features {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
