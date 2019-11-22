@@ -1,9 +1,17 @@
-Local
-A redis server needs to be running locally on port 6379.
-Set up a remote MongoDB database.
+fix:
+readme make list items be on their own lines
+// client install command does not work
+remove default.json values
+update mongoose to get rid of security threat
 
-Inside default.json set the values for the database connection (including password and account name) and JWTPrivateKey.
-For production, those values should be set on the server with the names MONGODB_URI and JWT_PRIVATE_KEY.
+
+
+// Local
+// A redis server needs to be running locally on port 6379.
+// Set up a remote MongoDB database.
+//
+// Inside default.json set the values for the database connection (including password and account name) and JWTPrivateKey.
+// For production, those values should be set on the server with the names MONGODB_URI and JWT_PRIVATE_KEY.
 
 
 

@@ -19,7 +19,8 @@ This application allows a user to search for words in a Japanese dictionary.  Th
 git clone git@github.com:onionpeel/vocab-app.git
 cd vocab-app
 npm install
-npm client-install
+cd client
+npm install
 
 ```
 Redis is used for caching the results of the dictionary searches. A Redis instance needs to be created for the searches to work.
