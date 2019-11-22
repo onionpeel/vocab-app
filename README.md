@@ -3,16 +3,16 @@
 This application allows a user to search for words in a Japanese dictionary.  The user can create an account and create a personalized vocabulary list.
 
 # Features
--The frontend is built with React, Redux, Bootstrap and React-Bootstrap
--React-Router handles the client-side routing
--User input is stored in a MongoDB database, using Mongoose to model the data
--Dictionary searches are cached using Redis
--The backend runs on an Express server
--Express-Validator validates form input
--bcryptjs encrypts passwords
--JSON web tokens are used to maintain a user's activity in local storage
--Asynchronous calls are made using Axios
--Project configurations are organized through the npm package, config
+- The frontend is built with React, Redux, Bootstrap and React-Bootstrap
+- React-Router handles the client-side routing
+- User input is stored in a MongoDB database, using Mongoose to model the data
+- Dictionary searches are cached using Redis
+- The backend runs on an Express server
+- Express-Validator validates form input
+- bcryptjs encrypts passwords
+- JSON web tokens are used to maintain a user's activity in local storage
+- Asynchronous calls are made using Axios
+- Project configurations are organized through the npm package, config
 
 ## Installation
 ```

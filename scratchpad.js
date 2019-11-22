@@ -3,7 +3,7 @@ readme make list items be on their own lines
 // client install command does not work
 remove default.json values
 update mongoose to get rid of security threat
-
+gitignore images
 
 
 // Local
