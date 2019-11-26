@@ -26,7 +26,7 @@ const App = ({isAuthenticated}) => {
           ) : (
             <Redirect
               to={{
-                pathname: "/login"
+                pathname: "/"
               }}
             />
           )

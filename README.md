@@ -1,6 +1,6 @@
 # Vocab-app
 
-This application allows a user to search for words in a Japanese dictionary.  The user can create an account and create a personalized vocabulary list.
+This application allows a user to search for words in a Japanese dictionary.  The user can create an account and make a personalized vocabulary list.
 
 # Features
 - The frontend is built with React, Redux, Bootstrap and React-Bootstrap
@@ -21,13 +21,12 @@ cd vocab-app
 npm install
 cd client
 npm install
-
 ```
-Redis is used for caching the results of the dictionary searches. A Redis instance needs to be created for the searches to work.
+Redis is used for caching the results of the dictionary searches. **A Redis instance needs to be created for the searches to work.**
 MongoDB is the backend database.  This can be set up through the MongoDB website.
 
 ### Configuration
-Local
+Development
 In the config directory create a `default.json` file.  Set up that file as follows, filling in the necessary information
 
 ```

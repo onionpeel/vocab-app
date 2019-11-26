@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {Card, Row, Col, Button, Container} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {add} from '../actions/vocabActions';
 import uuid from 'uuid/v4';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 const Term = ({kanji, kana, english, add, isAuthenticated, list}) => {
-  const handleOnClick = e => {
+  const cancelRef = useRef(null);
+  cancelRef.current = axios.CancelToken.source();
+
+  const handleOnClick = refObj => e => {
     e.preventDefault();
     add({
       kanji,
       kana,
       english
-    });
+    }, refObj);
   };
+
+  useEffect(() => {
+    return () => {
+      cancelRef.current.cancel();
+    };
+  }, []);
+
+
 
   const displayStatus = (kanji, kana, list) => {
     if (isAuthenticated) {
-      if (list.some(term => term.kanji === kanji)) {
+      if (list.some(term => term.kanji && term.kanji === kanji)) {
         return (
           <Row style={{
               display: 'flex',
@@ -28,7 +40,7 @@ const Term = ({kanji, kana, english, add, isAuthenticated, list}) => {
             <>{"\u2713 Added!"}</>
           </Row>
         );
-      } else if (list.some(term => term.kana === kana)) {
+      } else if (list.some(term => term.kana && term.kana === kana)) {
           return (
             <Row style={{
                 display: 'flex',
@@ -42,7 +54,7 @@ const Term = ({kanji, kana, english, add, isAuthenticated, list}) => {
       } else {
         return (
           <Row style={{display: 'flex', justifyContent: 'flex-end'}}>
-            <Button onClick={handleOnClick}>Add</Button>
+            <Button onClick={handleOnClick(cancelRef.current)}>Add</Button>
           </Row>
         );
       }

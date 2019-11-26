@@ -15,20 +15,33 @@ import bookstoreCropped from '../images/bookstoreCropped.jpg';
 
 const Search = ({isAuthenticated, match}) => {
   const [terms, setTerms] = useState([]);
-  const [isLastPage, setIsLastPage] = useState(false);
   const [searchWord, setSearchWord] = useState(match.params.term);
   let [currentPage, setCurrentPage] = useState(parseInt(match.params.page));
 
   let [isQuery, setIsQuery] = useState(false);
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
     const fetchByQuery = async () => {
-      const response = await axios.get(`/api/vocab/${match.params.term}/${match.params.page}`);
-      setTerms(response.data);
+      try {
+        const response = await axios.get(`/api/vocab/${match.params.term}/${match.params.page}`,
+          {cancelToken: source.token});
+
+        setTerms(response.data);
+      } catch (err) {
+        if (!axios.isCancel(err)) {
+          console.log('error: ', err.message);
+        };
+      };
     };
 
     fetchByQuery();
-  }, []);
+
+    return () => {
+      source.cancel('Cancelling API request');
+    };
+  }, [match.params.term, match.params.page]);
 
   const setQuery = e => {
     setSearchWord(e.target.value);

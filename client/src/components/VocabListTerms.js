@@ -4,7 +4,6 @@ import VocabListTerm from './VocabListTerm';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import VocabListPaginate from './VocabListPaginate';
-import {Redirect} from 'react-router-dom';
 
 const VocabListTerms = ({vocabulary, name}) => {
   let [currentPage, setCurrentPage] = useState(1);

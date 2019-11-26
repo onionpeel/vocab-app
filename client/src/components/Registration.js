@@ -3,7 +3,7 @@ import {Redirect} from 'react-router-dom';
 import {Form, Container, Col, Row, Button, Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {registerUser} from '../actions/authActions';
-import IsLoadingAlert from './IsLoadingAlert';
+import Spinner from './Spinner';
 import {clearError} from '../actions/errorActions';
 import PropTypes from 'prop-types';
 
@@ -24,26 +24,22 @@ const Registration = ({registerUser, isAuthenticated, isLoading, errorStatus, er
   const handleOnSubmit = async e => {
     e.preventDefault();
     await clearError();
-    await registerUser(newUser);
     setNewUser({
       ...newUser,
       password: ''
-    });
+    })
+    await registerUser(newUser);
   };
 
   const renderRedirect = () => {
     return (isAuthenticated && <Redirect to="/vocablist" />);
   };
 
-  const loadAlert = () => {
-    return (isLoading && <IsLoadingAlert />);
-  };
-
   return (
     <div>
       <Container>
         {renderRedirect()}
-        {loadAlert()}
+        <Spinner isLoading={isLoading} />
         {errorStatus && <Alert style={{textAlign:'center', backgroundColor:'#ebeded'}}>{errorMessage.msg}</Alert>}
         <Row>
           <Col xs={12} md={6} className="mx-auto" style={{marginTop:15}}>

@@ -20,7 +20,7 @@ const HeaderLoggedIn = ({authenticate: {user}, logout}) => {
           <Nav.Link href="/about">About</Nav.Link>
           <Nav.Link href="/vocablist">{user.name}'s vocab list</Nav.Link>
           <Nav.Link href="/dictionary">Dictionary</Nav.Link>
-          <Nav.Link variant="link" href="/" onClick={handleOnClick}>Logout</Nav.Link>
+          <Nav.Link href="/" onClick={handleOnClick}>Logout</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

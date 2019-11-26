@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {Card, Row, Col, Button, Container} from 'react-bootstrap';
 import uuid from 'uuid/v4';
 import {connect} from 'react-redux';
 import {deleteTerm} from '../actions/vocabActions';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 const VocabListTerm = ({kanji, kana, english, id, deleteTerm}) => {
+  const deleteRef = useRef(null);
+  deleteRef.current = axios.CancelToken.source();
+
+  useEffect(() => {
+    return () => {
+      deleteRef.current.cancel();
+    };
+  }, []);
+
   return (
     <Card style={{marginBottom: 10, padding: 10, boxShadow: "1px 2px 5px grey",
                   backgroundColor: 'rgb(245, 250, 250)'}}>
@@ -35,7 +45,7 @@ const VocabListTerm = ({kanji, kana, english, id, deleteTerm}) => {
           </Col>
         </Row>
         <Row xs={12} md={2} style={{marginTop: 'auto', display: "flex", justifyContent: "flex-end"}}>
-          <Button onClick={() => deleteTerm(id)}>
+          <Button onClick={() => deleteTerm(id, deleteRef.current)}>
             Delete
           </Button>
         </Row>
