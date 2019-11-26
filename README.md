@@ -27,6 +27,7 @@ MongoDB is the backend database.  This can be set up through the MongoDB website
 
 ### Configuration
 Development
+
 In the config directory create a `default.json` file.  Set up that file as follows, filling in the necessary information
 
 ```
@@ -36,6 +37,7 @@ In the config directory create a `default.json` file.  Set up that file as follo
 }
 ```
 Production
+
 JWT_PRIVATE_KEY, MONGODB_URI and REDIS_URL should be set directly on the server.  These will override any values set in `config/default.json`.
 
 ### Run
