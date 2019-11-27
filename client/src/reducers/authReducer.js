@@ -28,7 +28,8 @@ export default (state = initialState, action) => {
     case LOGOUT_FAIL:
     case LOGIN_FAIL:
       return {
-        ...state
+        isAuthenticated: false,
+        isLoading: false
       };
     case IS_LOADING:
       return {

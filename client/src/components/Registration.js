@@ -27,7 +27,7 @@ const Registration = ({registerUser, isAuthenticated, isLoading, errorStatus, er
     setNewUser({
       ...newUser,
       password: ''
-    })
+    });
     await registerUser(newUser);
   };
 

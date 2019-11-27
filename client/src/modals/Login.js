@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {Modal, Button, Form} from 'react-bootstrap';
+import {Modal, Button, Form, Alert} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import IsLoadingAlert from '../components/IsLoadingAlert';
+import Spinner from '../components/Spinner';
 import {login} from '../actions/authActions';
 import PropTypes from 'prop-types';
+import {clearError} from '../actions/errorActions';
 
-const Login = ({onHide, show, isLoading, login, error: {message}}) => {
+const Login = ({onHide, show, isLoading, login, errorStatus, errors: {errorMessage}, clearError}) => {
   const [user, setUser] = useState({
     password: '',
     email: ''
@@ -20,13 +21,14 @@ const Login = ({onHide, show, isLoading, login, error: {message}}) => {
     setUser(newUser);
   };
 
-  const handleOnSubmit = e => {
+  const handleOnSubmit = async e => {
     e.preventDefault();
-    login(user);
-  };
-
-  const loadAlert = () => {
-    return (isLoading && <IsLoadingAlert />);
+    await clearError();
+    setUser({
+      ...user,
+      password: ''
+    });
+    await login(user);
   };
 
   return (
@@ -41,7 +43,8 @@ const Login = ({onHide, show, isLoading, login, error: {message}}) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {loadAlert()}
+          <Spinner isLoading={isLoading}/>
+          {errorStatus && <Alert style={{textAlign:'center', backgroundColor:'#ebeded'}}>{errorMessage.msg}</Alert>}
           <Form onSubmit={handleOnSubmit}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
@@ -78,17 +81,20 @@ Login.propTypes = {
   show: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
   login: PropTypes.func.isRequired,
-  error: PropTypes.object,
-  message: PropTypes.string
+  errors: PropTypes.object,
+  errorStatus: PropTypes.bool,
+  clearError: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   isLoading: state.authenticate.isLoading,
-  error: state.errors
+  errors: state.errors,
+  errorStatus: state.errors.errorStatus
 });
 
 const mapDispatchToProps = {
-  login
+  login,
+  clearError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

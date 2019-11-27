@@ -2,13 +2,22 @@ import React, {useState} from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
 import './Header.css';
 import Login from '../modals/Login';
+import {clearError} from '../actions/errorActions';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
-const HeaderLoggedOut = () => {
+const HeaderLoggedOut = ({clearError}) => {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => {
+    setShow(false);
+    clearError();
+  };
 
+  const handleShow = () => {
+    setShow(true);
+    clearError();
+  };
   return (
     <Navbar expand="lg">
       <Navbar.Brand href="/">The Sumo Diaper Rash</Navbar.Brand>
@@ -31,4 +40,12 @@ const HeaderLoggedOut = () => {
   );
 };
 
-export default HeaderLoggedOut;
+HeaderLoggedOut.propTypes = {
+  clearError: PropTypes.func.isRequired
+};
+
+const mapDispatchToProps = {
+  clearError
+};
+
+export default connect(null, mapDispatchToProps)(HeaderLoggedOut);

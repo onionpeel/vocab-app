@@ -11,7 +11,7 @@ const bcrypt = require('bcryptjs');
 //@access         public
 router.post('/', [
     check('name').isLength({min: 1}).withMessage('Please enter a user name'),
-    check('email').isEmail().withMessage('An email address is necessary to register'),
+    check('email').isEmail().withMessage('An email address is necessary to register and login'),
     check('password').isLength({min: 6}).withMessage('Your password needs to be at least 6 characters long')
   ],
   async (req, res) => {

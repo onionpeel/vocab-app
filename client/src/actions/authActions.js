@@ -15,13 +15,13 @@ export const registerUser = user => async dispatch => {
     dispatch({
       type: IS_LOADING
     });
+
     const newUser = await axios.post('/api/user', user);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: newUser.data
     });
     const token = newUser.data.token;
-
     dispatch({
       type: IS_LOADED
     });
