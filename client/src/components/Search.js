@@ -14,7 +14,7 @@ import {Redirect} from 'react-router-dom';
 import bookstoreCropped from '../images/bookstoreCropped.jpg';
 
 const Search = ({isAuthenticated, match}) => {
-  const [terms, setTerms] = useState([]);
+  const [terms, setTerms] = useState(Array(1));
   const [searchWord, setSearchWord] = useState(match.params.term);
   let [currentPage, setCurrentPage] = useState(parseInt(match.params.page));
 
