@@ -40,7 +40,13 @@ const Registration = ({registerUser, isAuthenticated, isLoading, errorStatus, er
       <Container>
         {renderRedirect()}
         <Spinner isLoading={isLoading} />
-        {errorStatus && <Alert style={{textAlign:'center', backgroundColor:'#ebeded'}}>{errorMessage.msg}</Alert>}
+        {errorStatus &&
+          <Row>
+            <Col xs={12} md={6} className="mx-auto">
+              <Alert style={{textAlign:'center', backgroundColor:'#ebeded'}}>{errorMessage.msg}</Alert>
+            </Col>
+          </Row>
+        }
         <Row>
           <Col xs={12} md={6} className="mx-auto" style={{marginTop:15}}>
             <Alert style={{backgroundColor: 'rgb(196, 233, 245)'}}>
